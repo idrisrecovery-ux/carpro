@@ -23,27 +23,7 @@
       "images/a180/2.jpg",
       "images/a180/3.jpg",
       "images/a180/4.jpg",
-      "images/a180/5.jpg",
-      "images/a180/6.jpg",
-      "images/a180/7.jpg",
-      "images/a180/8.jpg",
-      "images/a180/9.jpg",
-      "images/a180/10.jpg",
-      "images/a180/11.jpg",
-      "images/a180/12.jpg",
-      "images/a180/13.jpg",
-      "images/a180/14.jpg",
-      "images/a180/15.jpg",
-      "images/a180/16.jpg",
-      "images/a180/17.jpg",
-      "images/a180/18.jpg",
-      "images/a180/19.jpg",
-      "images/a180/20.jpg",
-      "images/a180/21.jpg",
-      "images/a180/22.jpg",
-      "images/a180/23.jpg",
-      "images/a180/24.jpg",
-      "images/a180/25.jpg"
+      "images/a180/5.jpg"
     ],
     "videos": [
       "images/a180/vid1.mp4"
@@ -73,22 +53,7 @@
       "images/e300/2.jpg",
       "images/e300/3.jpg",
       "images/e300/4.jpg",
-      "images/e300/5.jpg",
-      "images/e300/6.jpg",
-      "images/e300/7.jpg",
-      "images/e300/8.jpg",
-      "images/e300/9.jpg",
-      "images/e300/10.jpg",
-      "images/e300/11.jpg",
-      "images/e300/12.jpg",
-      "images/e300/13.jpg",
-      "images/e300/14.jpg",
-      "images/e300/15.jpg",
-      "images/e300/16.jpg",
-      "images/e300/17.jpg",
-      "images/e300/18.jpg",
-      "images/e300/19.jpg",
-      "images/e300/20.jpg"
+      "images/e300/5.jpg"
     ],
     "videos": [
       "images/e300/vid1.mp4",
@@ -111,8 +76,7 @@
       "Crawl Control",
       "Kinetic Dynamic Suspension",
       "12.3-inch Multimedia Display",
-      "JBL Premium Audio",
-      "Panoramic View Monitor"
+      "JBL Premium Audio"
     ],
     "description": "The Toyota Land Cruiser continues its legacy as the ultimate off-road luxury SUV.",
     "photos": [
@@ -120,14 +84,10 @@
       "images/aqua8339/2.jpg",
       "images/aqua8339/3.jpg",
       "images/aqua8339/4.jpg",
-      "images/aqua8339/5.jpg",
-      "images/aqua8339/6.jpg",
-      "images/aqua8339/7.jpg",
-      "images/aqua8339/8.jpg"
+      "images/aqua8339/5.jpg"
     ],
     "videos": [
-      "images/aqua8339/vid1.mp4",
-      "images/aqua8339/vid2.mp4"
+      "images/aqua8339/vid1.mp4"
     ]
   },
   "kia1": {
@@ -145,8 +105,7 @@
       "10.25-inch Touchscreen",
       "Harmon Kardon Audio",
       "Panoramic Sunroof",
-      "Heated and Ventilated Seats",
-      "Surround View Monitor"
+      "Heated and Ventilated Seats"
     ],
     "description": "The Kia Telluride sets new standards for three-row SUV luxury and capability.",
     "photos": [
@@ -154,33 +113,10 @@
       "images/carnival/2.jpg",
       "images/carnival/3.jpg",
       "images/carnival/4.jpg",
-      "images/carnival/5.jpg",
-      "images/carnival/6.jpg",
-      "images/carnival/7.jpg",
-      "images/carnival/8.jpg",
-      "images/carnival/9.jpg",
-      "images/carnival/10.jpg",
-      "images/carnival/11.jpg",
-      "images/carnival/12.jpg",
-      "images/carnival/13.jpg",
-      "images/carnival/14.jpg",
-      "images/carnival/15.jpg",
-      "images/carnival/16.jpg",
-      "images/carnival/17.jpg",
-      "images/carnival/18.jpg",
-      "images/carnival/19.jpg",
-      "images/carnival/20.jpg",
-      "images/carnival/21.jpg",
-      "images/carnival/22.jpg",
-      "images/carnival/23.jpg",
-      "images/carnival/24.jpg",
-      "images/carnival/25.jpg",
-      "images/carnival/26.jpg",
-      "images/carnival/27.jpg"
+      "images/carnival/5.jpg"
     ],
     "videos": [
-      "images/carnival/vid1.mp4",
-      "images/carnival/vid2.mp4"
+      "images/carnival/vid1.mp4"
     ]
   },
   "hyundai1": {
@@ -198,8 +134,7 @@
       "12.3-inch Digital Cluster",
       "Harmon Kardon Audio",
       "Panoramic Sunroof",
-      "Nappa Leather",
-      "Surround View Monitor"
+      "Nappa Leather"
     ],
     "description": "The Hyundai Palisade Calligraphy offers luxury features in a three-row SUV.",
     "photos": [
@@ -207,20 +142,10 @@
       "images/palisade/2.jpg",
       "images/palisade/3.jpg",
       "images/palisade/4.jpg",
-      "images/palisade/5.jpg",
-      "images/palisade/6.jpg",
-      "images/palisade/7.jpg",
-      "images/palisade/8.jpg",
-      "images/palisade/9.jpg",
-      "images/palisade/10.jpg",
-      "images/palisade/11.jpg",
-      "images/palisade/12.jpg",
-      "images/palisade/13.jpg"
+      "images/palisade/5.jpg"
     ],
     "videos": [
-      "images/palisade/vid1.mp4",
-      "images/palisade/vid2.mp4",
-      "images/palisade/vid3.mp4"
+      "images/palisade/vid1.mp4"
     ]
   },
   "hyundai2": {
@@ -238,8 +163,7 @@
       "Sport-Tuned Suspension",
       "Dual Exhaust",
       "10.25-inch Touchscreen",
-      "Bose Premium Audio",
-      "Heated and Ventilated Seats"
+      "Bose Premium Audio"
     ],
     "description": "The Hyundai Sonata N Line adds sporty performance to the stylish sedan.",
     "photos": [
@@ -247,15 +171,7 @@
       "images/maxcruz/2.jpg",
       "images/maxcruz/3.jpg",
       "images/maxcruz/4.jpg",
-      "images/maxcruz/5.jpg",
-      "images/maxcruz/6.jpg",
-      "images/maxcruz/7.jpg",
-      "images/maxcruz/8.jpg",
-      "images/maxcruz/9.jpg",
-      "images/maxcruz/10.jpg",
-      "images/maxcruz/11.jpg",
-      "images/maxcruz/12.jpg",
-      "images/maxcruz/13.jpg"
+      "images/maxcruz/5.jpg"
     ],
     "videos": []
   },
@@ -274,8 +190,7 @@
       "All-Terrain Progress Control",
       "Adaptive Dynamics",
       "Meridian Sound System",
-      "Panoramic Roof",
-      "Air Suspension"
+      "Panoramic Roof"
     ],
     "description": "The ultimate luxury SUV with unmatched off-road capability.",
     "photos": [
@@ -283,35 +198,70 @@
       "images/landrover/2.jpg",
       "images/landrover/3.jpg",
       "images/landrover/4.jpg",
-      "images/landrover/5.jpg",
-      "images/landrover/6.jpg",
-      "images/landrover/7.jpg",
-      "images/landrover/8.jpg",
-      "images/landrover/9.jpg",
-      "images/landrover/10.jpg",
-      "images/landrover/11.jpg",
-      "images/landrover/12.jpg",
-      "images/landrover/13.jpg",
-      "images/landrover/14.jpg",
-      "images/landrover/15.jpg",
-      "images/landrover/16.jpg",
-      "images/landrover/17.jpg",
-      "images/landrover/18.jpg",
-      "images/landrover/19.jpg",
-      "images/landrover/20.jpg",
-      "images/landrover/21.jpg",
-      "images/landrover/22.jpg",
-      "images/landrover/23.jpg",
-      "images/landrover/24.jpg",
-      "images/landrover/25.jpg",
-      "images/landrover/26.jpg",
-      "images/landrover/27.jpg",
-      "images/landrover/28.jpg",
-      "images/landrover/29.jpg"
+      "images/landrover/5.jpg"
     ],
     "videos": [
-      "images/landrover/vid1.mp4",
-      "images/landrover/vid2.mp4"
+      "images/landrover/vid1.mp4"
     ]
+  },
+  "car_1762604755941": {
+    "title": "Kia K8",
+    "brand": "kia",
+    "price": "56000 AZN",
+    "year": "2023",
+    "mileage": "36000 km",
+    "transmission": "Automatic",
+    "engine": "2.2L Diesel",
+    "horsepower": "0 hp",
+    "description": "",
+    "features": [],
+    "photos": [
+      "images/k8/1.jpg",
+      "images/k8/2 (1).jpg",
+      "images/k8/2 (2).jpg",
+      "images/k8/2 (3).jpg",
+      "images/k8/2 (4).jpg",
+      "images/k8/2 (5).jpg",
+      "images/k8/2 (6).jpg",
+      "images/k8/2 (7).jpg",
+      "images/k8/2 (8).jpg",
+      "images/k8/2 (9).jpg",
+      "images/k8/2 (10).jpg",
+      "images/k8/3 (1).jpg",
+      "images/k8/3 (2).jpg",
+      "images/k8/3 (3).jpg",
+      "images/k8/3 (4).jpg",
+      "images/k8/3 (5).jpg",
+      "images/k8/3 (6).jpg",
+      "images/k8/3 (7).jpg",
+      "images/k8/3 (8).jpg",
+      "images/k8/3 (9).jpg",
+      "images/k8/3 (10).jpg",
+      "images/k8/3 (11).jpg",
+      "images/k8/3 (12).jpg",
+      "images/k8/4 (1).jpg",
+      "images/k8/4 (2).jpg",
+      "images/k8/4 (3).jpg",
+      "images/k8/4 (4).jpg",
+      "images/k8/4 (5).jpg",
+      "images/k8/4 (6).jpg",
+      "images/k8/4 (7).jpg",
+      "images/k8/4 (8).jpg",
+      "images/k8/4 (9).jpg",
+      "images/k8/4 (10).jpg",
+      "images/k8/4 (11).jpg",
+      "images/k8/4 (12).jpg",
+      "images/k8/4 (13).jpg",
+      "images/k8/4 (14).jpg",
+      "images/k8/4 (15).jpg",
+      "images/k8/4 (16).jpg",
+      "images/k8/4 (17).jpg",
+      "images/k8/23.jpg"
+    ],
+    "videos": [
+      "images/k8/vid1.mp4",
+      "images/k8/vid2.mp4"
+    ],
+    "id": "car_1762604755941"
   }
 }
