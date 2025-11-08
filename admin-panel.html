@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Premium Auto Gallery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f8f9fa; }
+        .admin-header { background: linear-gradient(135deg, #1a2a57 0%, #2c3e6e 100%); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .admin-nav { background: white; padding: 1rem 2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        .nav-tabs { display: flex; gap: 2rem; overflow-x: auto; }
+        .nav-tab { padding: 0.5rem 1rem; cursor: pointer; border-radius: 4px; transition: background 0.3s ease; white-space: nowrap; }
+        .nav-tab.active { background: #3498db; color: white; }
+        .admin-content { padding: 2rem; max-width: 1200px; margin: 0 auto; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .card { background: white; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #2c3e50; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border: 2px solid #e9ecef; border-radius: 4px; font-size: 1rem; }
+        .form-group textarea { height: 100px; resize: vertical; }
+        .btn { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; transition: background 0.3s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-primary { background: #3498db; color: white; } .btn-primary:hover { background: #2980b9; }
+        .btn-danger { background: #e74c3c; color: white; } .btn-danger:hover { background: #c0392b; }
+        .btn-success { background: #27ae60; color: white; } .btn-success:hover { background: #219653; }
+        .btn-warning { background: #f39c12; color: white; } .btn-warning:hover { background: #e67e22; }
+        .btn-info { background: #17a2b8; color: white; } .btn-info:hover { background: #138496; }
+        .btn-secondary { background: #6c757d; color: white; } .btn-secondary:hover { background: #5a6268; }
+        .cars-list { display: grid; gap: 1rem; }
+        .car-item { background: white; border: 1px solid #e9ecef; border-radius: 6px; padding: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .car-info h4 { margin-bottom: 0.5rem; color: #2c3e50; }
+        .car-actions { display: flex; gap: 0.5rem; }
+        .system-status { padding: 10px; border-radius: 4px; margin-bottom: 1rem; text-align: center; }
+        .status-connected { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .status-standalone { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .action-buttons, .data-actions { display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
+        .data-actions { justify-content: center; }
+        .export-import-section { background: #f8f9fa; border: 2px dashed #dee2e6; border-radius: 8px; padding: 2rem; text-align: center; margin-top: 2rem; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+        .modal-content { background: white; border-radius: 8px; max-height: 90vh; overflow-y: auto; width: 100%; }
+        .file-manager-controls { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
+        .folder-input-group { margin-bottom: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 6px; border: 1px solid #e9ecef; }
+        .folder-path-preview { font-family: monospace; background: white; padding: 8px; border-radius: 4px; border: 1px solid #dee2e6; margin-top: 0.5rem; font-size: 0.9rem; word-break: break-all; }
+        .selected-files-preview { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 0.5rem; margin-top: 1rem; max-height: 200px; overflow-y: auto; padding: 1rem; background: #f8f9fa; border-radius: 6px; border: 1px dashed #dee2e6; }
+        .file-preview-item { text-align: center; padding: 0.5rem; background: white; border-radius: 4px; border: 1px solid #e9ecef; position: relative; }
+        .file-preview-item img, .file-preview-item video { max-width: 100%; height: 60px; object-fit: cover; border-radius: 4px; margin-bottom: 0.25rem; }
+        .file-preview-item .file-name { font-size: 0.7rem; word-break: break-all; margin-bottom: 0.25rem; height: 2.5em; overflow: hidden; }
+        .file-preview-item .remove-file { background: #e74c3c; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; cursor: pointer; font-size: 0.6rem; position: absolute; top: -5px; right: -5px; display: flex; align-items: center; justify-content: center; }
+        .recent-list { display: grid; gap: 0.5rem; }
+        .recent-item { display: flex; align-items: center; justify-content: space-between; padding: 0.8rem; background: #f8f9fa; border-radius: 6px; border: 1px solid #eee; transition: transform 0.2s ease; }
+        .recent-item:hover { transform: translateX(5px); border-color: #3498db; }
+        .recent-info { display: flex; align-items: center; gap: 1rem; }
+        .recent-thumb { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <div class="admin-header">
+        <h1>Premium Auto Gallery - Admin</h1>
+        <button class="btn btn-danger" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </div>
+    
+    <div class="admin-nav">
+        <div class="nav-tabs">
+            <div class="nav-tab active" data-tab="dashboard">Dashboard</div>
+            <div class="nav-tab" data-tab="add-car">Add New Car</div>
+            <div class="nav-tab" data-tab="manage-cars">Manage Cars</div>
+            <div class="nav-tab" data-tab="data-management">Data Management</div>
+            <div class="nav-tab" data-tab="settings">Settings</div>
+        </div>
+    </div>
+    
+    <div class="admin-content">
+        <div class="system-status" id="systemStatus">Checking system status...</div>
+        
+        <div class="tab-content active" id="dashboard">
+            <div class="card">
+                <h2>Dashboard</h2>
+                <p>Welcome to the admin panel.</p>
+                <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem;">
+                    <div class="stat-card" style="background: #3498db; color: white; padding: 1.5rem; border-radius: 6px; text-align: center;">
+                        <h3 id="totalCars" style="font-size: 2.5rem;">0</h3><p>Total Cars</p>
+                    </div>
+                    <div class="stat-card" style="background: #27ae60; color: white; padding: 1.5rem; border-radius: 6px; text-align: center;">
+                        <h3 id="totalBrands" style="font-size: 2.5rem;">0</h3><p>Brands</p>
+                    </div>
+                </div>
+                <div class="recent-section" style="margin-top: 2rem; background: white; padding: 1.5rem; border-radius: 8px; border: 1px solid #e9ecef;">
+                    <h3 style="color: #2c3e50; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #f8f9fa; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-history" style="color: #3498db;"></i> Recently Added
+                    </h3>
+                    <div id="recentCarsList" class="recent-list">Loading...</div>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-success" onclick="window.open('index.html', '_blank')"><i class="fas fa-external-link-alt"></i> Open Main Website</button>
+                    <button class="btn btn-warning" onclick="importCarsFromMainSite()"><i class="fas fa-download"></i> Import Demo Data</button>
+                    <button class="btn btn-danger" onclick="clearAllCars()"><i class="fas fa-trash"></i> Clear All Cars</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="add-car">
+            <div class="card">
+                <h2>Add New Car</h2>
+                <form id="addCarForm">
+                    <div class="form-grid">
+                        <div class="form-group"><label for="carTitle">Car Title *</label><input type="text" id="carTitle" required></div>
+                        <div class="form-group"><label for="carBrand">Brand *</label>
+                            <select id="carBrand" required>
+                                <option value="">Select Brand</option><option value="bmw">BMW</option><option value="mercedes">Mercedes</option>
+                                <option value="toyota">Toyota</option><option value="kia">Kia</option><option value="hyundai">Hyundai</option>
+                                <option value="landrover">Land Rover</option><option value="chevrolet">Chevrolet</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label for="carPrice">Price *</label><input type="text" id="carPrice" placeholder="23900 AZN" required></div>
+                        
+                        <div class="form-group">
+                            <label for="carYear">Year *</label>
+                            <input type="number" id="carYear" required list="yearList" placeholder="Select or type year">
+                        </div>
+
+                        <div class="form-group"><label for="carMileage">Mileage</label><input type="text" id="carMileage" placeholder="193412 km"></div>
+                        <div class="form-group"><label for="carTransmission">Transmission</label>
+                            <select id="carTransmission">
+                                <option value="Automatic">Automatic</option><option value="Manual">Manual</option>
+                                <option value="Robot">Robot</option><option value="Variator">Variator</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label for="carEngine">Engine *</label><input type="text" id="carEngine" placeholder="1.5L Diesel" required></div>
+                        <div class="form-group"><label for="carHorsepower">Horsepower</label><input type="text" id="carHorsepower" placeholder="630 hp"></div>
+                    </div>
+                    <div class="form-group"><label for="carDescription">Description</label><textarea id="carDescription"></textarea></div>
+                    <div class="form-group"><label for="carFeatures">Features (comma separated)</label><textarea id="carFeatures" placeholder="Leather Seats, Sunroof"></textarea></div>
+                    <div class="form-group"><label for="carPhotos">Photo URLs *</label>
+                        <div class="file-manager-controls">
+                            <button type="button" class="btn btn-info" onclick="openFileManager('carPhotos', 'image')"><i class="fas fa-camera"></i> Select Photos</button>
+                        </div>
+                        <div class="folder-input-group">
+                            <label for="carFolderName">Folder Name (recommended):</label>
+                            <input type="text" id="carFolderName" placeholder="e.g., k8" style="width: 100%; padding: 8px; border: 2px solid #e9ecef; border-radius: 4px;">
+                            <div class="folder-path-preview" id="carFolderPathPreview">Path: images/folder_name/filename.jpg</div>
+                        </div>
+                        <textarea id="carPhotos" placeholder="images/k8/front.jpg" required></textarea>
+                    </div>
+                    <div class="form-group"><label for="carVideos">Video URLs</label>
+                        <div class="file-manager-controls">
+                            <button type="button" class="btn btn-info" style="background: #8e44ad;" onclick="openFileManager('carVideos', 'video')"><i class="fas fa-video"></i> Select Videos</button>
+                        </div>
+                        <textarea id="carVideos" placeholder="images/k8/review.mp4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Add Car</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="manage-cars">
+            <div class="card">
+                <h2>Manage Cars</h2>
+                <div class="cars-list" id="carsList"></div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="data-management">
+            <div class="card">
+                <h2>Data Management</h2>
+                <div class="export-import-section">
+                    <h3><i class="fas fa-database"></i> Backup & Restore</h3>
+                    <div class="data-actions">
+                        <button class="btn btn-success" onclick="exportData()"><i class="fas fa-file-export"></i> Export to JSON</button>
+                        <button class="btn btn-info" onclick="importData()"><i class="fas fa-file-import"></i> Import from JSON</button>
+                        <button class="btn btn-warning" onclick="showRawData()"><i class="fas fa-code"></i> Show Raw Data</button>
+                    </div>
+                    <div id="rawDataContainer" style="display: none; margin-top: 2rem;">
+                        <h4>Raw JSON Data:</h4>
+                        <textarea id="rawDataText" style="width: 100%; height: 300px; font-family: monospace; padding: 1rem; border: 1px solid #ddd; border-radius: 4px;"></textarea>
+                        <div style="margin-top: 1rem;">
+                            <button class="btn btn-primary" onclick="updateFromRawData()"><i class="fas fa-sync"></i> Update</button>
+                            <button class="btn btn-secondary" onclick="hideRawData()"><i class="fas fa-times"></i> Hide</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="settings">
+            <div class="card">
+                <h2>Admin Settings</h2>
+                <form id="settingsForm">
+                    <div class="form-group"><label>Admin Username</label><input type="text" id="adminUsername" value="admin"></div>
+                    <div class="form-group"><label>Admin Password</label><input type="password" id="adminPassword" placeholder="Leave blank to keep current"></div>
+                    
+                    <hr style="margin: 2rem 0; border: none; border-top: 1px solid #eee;">
+                    <h2><i class="fas fa-globe"></i> Main Site Settings</h2>
+                    <p style="margin-bottom: 1rem; color: #666;">Customize text on your main page.</p>
+                    
+                    <div class="form-group">
+                        <label for="siteTitle">Website Title (Browser Tab & Header)</label>
+                        <input type="text" id="siteTitle" placeholder="Darya Auto Gallery">
+                    </div>
+                    
+                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; border: 1px solid #e9ecef;">
+                        <h4 style="margin-bottom: 1rem; color: #3498db;">Main Banner (Hero Section)</h4>
+                        <div class="form-group">
+                            <label for="heroTitle">Main Heading</label>
+                            <input type="text" id="heroTitle" placeholder="Performans. Rahatlıq. Seçim.">
+                        </div>
+                        <div class="form-group">
+                            <label for="heroSubtitle">Subtitle Text</label>
+                            <textarea id="heroSubtitle" style="height: 60px;" placeholder="Hər sürücü üçün uyğun kolleksiya..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="heroButtonText">Button Text</label>
+                            <input type="text" id="heroButtonText" placeholder="Avtomobillərə keçid">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="collectionTitle">Car Collection Section Title</label>
+                        <input type="text" id="collectionTitle" placeholder="Sizi gözləyən maşınlar">
+                    </div>
+                    <div class="form-group">
+                        <label for="footerText">Footer Copyright Text</label>
+                        <input type="text" id="footerText" placeholder="© 2025 Darya Auto Gallery. All rights reserved.">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save All Settings</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <datalist id="yearList"></datalist>
+
+    <div id="editCarModal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 900px;">
+            <div class="card" style="margin-bottom: 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h2>Edit Car</h2>
+                    <button class="btn btn-secondary" onclick="closeEditModal()" style="padding: 5px 10px;"><i class="fas fa-times"></i></button>
+                </div>
+                <form id="editCarForm">
+                    <input type="hidden" id="editCarId">
+                    <div class="form-grid">
+                        <div class="form-group"><label>Title</label><input type="text" id="editCarTitle" required></div>
+                        <div class="form-group"><label>Brand</label><select id="editCarBrand" required><option value="bmw">BMW</option><option value="mercedes">Mercedes</option><option value="toyota">Toyota</option><option value="kia">Kia</option><option value="hyundai">Hyundai</option><option value="landrover">Land Rover</option><option value="chevrolet">Chevrolet</option></select></div>
+                        <div class="form-group"><label>Price</label><input type="text" id="editCarPrice" required></div>
+                        
+                        <div class="form-group"><label>Year</label>
+                            <input type="number" id="editCarYear" required list="yearList" placeholder="Select or type year">
+                        </div>
+
+                        <div class="form-group"><label>Mileage</label><input type="text" id="editCarMileage"></div>
+                        <div class="form-group"><label>Transmission</label><select id="editCarTransmission"><option value="Automatic">Automatic</option><option value="Manual">Manual</option><option value="Robot">Robot</option><option value="Variator">Variator</option></select></div>
+                        <div class="form-group"><label>Engine</label><input type="text" id="editCarEngine" required></div>
+                        <div class="form-group"><label>Horsepower</label><input type="text" id="editCarHorsepower"></div>
+                    </div>
+                    <div class="form-group"><label>Description</label><textarea id="editCarDescription"></textarea></div>
+                    <div class="form-group"><label>Features</label><textarea id="editCarFeatures"></textarea></div>
+                    <div class="form-group"><label>Photo URLs</label>
+                        <div class="file-manager-controls"><button type="button" class="btn btn-info" onclick="openFileManager('editCarPhotos', 'image')"><i class="fas fa-camera"></i> Select Photos</button></div>
+                        <div class="folder-input-group"><label>Folder Name:</label><input type="text" id="editCarFolderName" style="width:100%; padding:8px; border:2px solid #e9ecef; border-radius:4px;"><div class="folder-path-preview" id="editCarFolderPathPreview">Path...</div></div>
+                        <textarea id="editCarPhotos" required></textarea>
+                    </div>
+                    <div class="form-group"><label>Video URLs</label>
+                        <div class="file-manager-controls"><button type="button" class="btn btn-info" style="background:#8e44ad;" onclick="openFileManager('editCarVideos', 'video')"><i class="fas fa-video"></i> Select Videos</button></div>
+                        <textarea id="editCarVideos"></textarea>
+                    </div>
+                    <div class="action-buttons">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Changes</button>
+                        <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="quickPriceModal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 400px; text-align: center;">
+            <div class="card" style="margin-bottom: 0;">
+                <h3>⚡ Quick Change Price</h3>
+                <p id="quickPriceCarTitle" style="color: #666; margin-bottom: 1.5rem;"></p>
+                <input type="hidden" id="quickPriceCarId">
+                <div class="form-group"><input type="text" id="quickPriceInput" style="font-size: 1.5rem; text-align: center; padding: 15px;"></div>
+                <div class="action-buttons" style="justify-content: center; margin-top: 1.5rem;">
+                    <button class="btn btn-success" onclick="saveQuickPrice()"><i class="fas fa-check"></i> Save</button>
+                    <button class="btn btn-secondary" onclick="document.getElementById('quickPriceModal').style.display='none'">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="fileManagerModal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="card" style="margin-bottom: 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h2 id="fileManagerTitle">Select Files</h2>
+                    <button class="btn btn-secondary" onclick="closeFileManager()" style="padding: 5px 10px;"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="folder-input-group">
+                    <label>Folder Name:</label>
+                    <input type="text" id="fileManagerFolderName" placeholder="e.g., k8" style="width: 100%; padding: 8px; border: 2px solid #e9ecef; border-radius: 4px;">
+                    <div class="folder-path-preview" id="fileManagerPathPreview">Path: images/folder_name/filename.jpg</div>
+                </div>
+                <div style="margin-bottom: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    <input type="file" id="fileInput" multiple style="display: none;">
+                    <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()"><i class="fas fa-plus"></i> Add Files</button>
+                    <button class="btn btn-info" onclick="clearSelectedFiles()"><i class="fas fa-trash"></i> Clear All</button>
+                </div>
+                <div class="selected-files-preview" id="selectedFilesPreview">
+                    <div style="text-align: center; color: #6c757d; grid-column: 1/-1; padding: 2rem;"><i class="fas fa-cloud-upload-alt fa-3x" style="opacity: 0.5;"></i><p style="margin-top: 1rem;">No files selected yet</p></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; border-top: 1px solid #eee; padding-top: 1rem;">
+                    <div><strong>Selected:</strong> <span id="fileCount">0</span> files</div>
+                    <div><button class="btn btn-success" onclick="insertSelectedFiles()"><i class="fas fa-check"></i> Insert Paths</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check authentication
+        if (!localStorage.getItem('adminAuthenticated')) {
+            // window.location.href = 'admin-login.html';
+        }
+
+        // Populate Year Datalist
+        const yearList = document.getElementById('yearList');
+        const currentY = new Date().getFullYear();
+        for (let y = currentY + 1; y >= 2015; y--) {
+            const opt = document.createElement('option');
+            opt.value = y;
+            yearList.appendChild(opt);
+        }
+
+        // File Manager Variables
+        let selectedFiles = [], currentTargetTextarea = null, currentFileType = 'image';
+
+        // File Manager Functions
+        function openFileManager(targetTextarea, type = 'image') {
+            currentTargetTextarea = targetTextarea; currentFileType = type; selectedFiles = [];
+            document.getElementById('fileManagerTitle').textContent = type === 'video' ? 'Select Videos' : 'Select Photos';
+            document.getElementById('fileInput').accept = type === 'video' ? 'video/*' : 'image/*';
+            document.getElementById('fileManagerFolderName').value = targetTextarea.includes('editCar') ? document.getElementById('editCarFolderName').value : document.getElementById('carFolderName').value;
+            updateFilePreview();
+            document.getElementById('fileManagerModal').style.display = 'flex';
+            document.getElementById('fileInput').onchange = handleFileSelect;
+            document.getElementById('fileManagerFolderName').oninput = updateFilePathPreview;
+            updateFilePathPreview();
+        }
+        function closeFileManager() { document.getElementById('fileManagerModal').style.display = 'none'; clearSelectedFiles(); }
+        function handleFileSelect(event) {
+            [...event.target.files].forEach(file => {
+                if ((currentFileType === 'image' && file.type.startsWith('image/')) || (currentFileType === 'video' && file.type.startsWith('video/'))) {
+                    selectedFiles.push({ file, url: URL.createObjectURL(file), name: file.name, type: file.type });
+                }
+            });
+            updateFilePreview(); event.target.value = '';
+        }
+        function updateFilePreview() {
+            const container = document.getElementById('selectedFilesPreview');
+            if (selectedFiles.length === 0) { container.innerHTML = `<div style="text-align: center; color: #6c757d; grid-column: 1/-1; padding: 2rem;"><i class="fas fa-cloud-upload-alt fa-3x" style="opacity: 0.5;"></i><p style="margin-top: 1rem;">No files selected yet</p></div>`; document.getElementById('fileCount').textContent = '0'; return; }
+            container.innerHTML = '';
+            selectedFiles.forEach((file, index) => {
+                const previewMedia = file.type.startsWith('image/') ? `<img src="${file.url}" alt="${file.name}">` : `<video src="${file.url}" muted style="max-width: 100%; height: 60px; background: #000;"></video>`;
+                container.innerHTML += `<div class="file-preview-item">${previewMedia}<div class="file-name" title="${file.name}">${file.name}</div><button class="remove-file" onclick="removeFile(${index})"><i class="fas fa-times"></i></button></div>`;
+            });
+            document.getElementById('fileCount').textContent = selectedFiles.length;
+        }
+        function removeFile(index) { URL.revokeObjectURL(selectedFiles[index].url); selectedFiles.splice(index, 1); updateFilePreview(); }
+        function clearSelectedFiles() { selectedFiles.forEach(file => URL.revokeObjectURL(file.url)); selectedFiles = []; updateFilePreview(); }
+        function updateFilePathPreview() { document.getElementById('fileManagerPathPreview').innerHTML = `Path: images/<span style="color: #3498db; font-weight: bold;">${document.getElementById('fileManagerFolderName').value.trim() || 'folder_name'}</span>/filename.ext`; }
+        function insertSelectedFiles() {
+            const folder = document.getElementById('fileManagerFolderName').value.trim();
+            if (!folder) return alert('Please enter a folder name first');
+            if (selectedFiles.length === 0) return alert('Please select files first');
+            const paths = selectedFiles.map(file => `images/${folder}/${file.name}`).join('\n');
+            const textarea = document.getElementById(currentTargetTextarea);
+            textarea.value = textarea.value ? textarea.value + '\n' + paths : paths;
+            const folderInput = document.getElementById(currentTargetTextarea.includes('editCar') ? 'editCarFolderName' : 'carFolderName');
+            if (!folderInput.value) { folderInput.value = folder; folderInput.dispatchEvent(new Event('input')); }
+            closeFileManager(); showNotification(`Added ${selectedFiles.length} files!`);
+        }
+        function updateCarFolderPathPreview() { document.getElementById(this.id.replace('Name', 'PathPreview')).innerHTML = `Path: images/<span style="color: #3498db; font-weight: bold;">${this.value.trim() || 'folder_name'}</span>/filename.ext`; }
+
+        // Notification
+        function showNotification(message, type = 'success') {
+            const alert = document.createElement('div');
+            alert.style.cssText = `position: fixed; top: 20px; right: 20px; background: ${type === 'success' ? '#27ae60' : '#e74c3c'}; color: white; padding: 12px 25px; border-radius: 4px; z-index: 10000; box-shadow: 0 5px 15px rgba(0,0,0,0.2); font-weight: 600;`;
+            alert.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${message}`;
+            document.body.appendChild(alert); setTimeout(() => document.body.removeChild(alert), 3000);
+        }
+
+        // Car Manager
+        const CarManager = {
+            getAll: () => JSON.parse(localStorage.getItem('premiumAutoGalleryCars')) || {},
+            saveAll: (cars) => localStorage.setItem('premiumAutoGalleryCars', JSON.stringify(cars)),
+            add: (car) => { const cs=CarManager.getAll(); const id='c_'+Date.now(); cs[id]={...car,id}; CarManager.saveAll(cs); return id; },
+            update: (id, data) => { const cs=CarManager.getAll(); if(cs[id]){ cs[id]={...cs[id],...data,id}; CarManager.saveAll(cs); return true; } return false; },
+            delete: (id) => { const cs=CarManager.getAll(); if(cs[id]){ delete cs[id]; CarManager.saveAll(cs); return true; } return false; },
+            get: (id) => CarManager.getAll()[id],
+            exportData: () => JSON.stringify(CarManager.getAll(), null, 2),
+            importData: (jsonData) => { try { CarManager.saveAll(JSON.parse(jsonData)); return true; } catch (e) { return false; } }
+        };
+
+        // UI
+        function loadDashboardStats() {
+            const cars = CarManager.getAll();
+            document.getElementById('totalCars').textContent = Object.keys(cars).length;
+            document.getElementById('totalBrands').textContent = new Set(Object.values(cars).map(c => c.brand)).size;
+            loadRecentCars(cars);
+        }
+        function loadRecentCars(cars) {
+            const list = document.getElementById('recentCarsList');
+            const recent = Object.values(cars).reverse().slice(0, 3);
+            list.innerHTML = recent.length ? '' : '<p style="color: #999; padding: 1rem; text-align: center;">No cars added recently.</p>';
+            recent.forEach(c => {
+                list.innerHTML += `<div class="recent-item"><div class="recent-info"><img src="${c.photos?.[0]||'https://via.placeholder.com/50'}" class="recent-thumb"><div><strong style="color: #2c3e50;">${c.brand.toUpperCase()} ${c.title}</strong><div style="font-size: 0.9rem; color: #7f8c8d;">${c.price}</div></div></div><button class="btn btn-sm btn-warning" onclick="editCar('${c.id}')" style="padding: 5px 10px; font-size: 0.8rem;"><i class="fas fa-edit"></i> Edit</button></div>`;
+            });
+        }
+        function loadCarsList() {
+            const cars = Object.values(CarManager.getAll()).reverse();
+            document.getElementById('carsList').innerHTML = cars.length ? '' : '<div style="text-align: center; padding: 2rem; color: #999;"><i class="fas fa-car fa-3x"></i><p style="margin-top: 1rem;">No cars yet.</p></div>';
+            cars.forEach(c => {
+                document.getElementById('carsList').innerHTML += `<div class="car-item"><div class="car-info"><h4>${c.brand.toUpperCase()} ${c.title}</h4><p><span style="color: #27ae60; font-weight: bold; margin-right: 10px;">${c.price}</span> <i class="fas fa-calendar-alt"></i> ${c.year} • <i class="fas fa-images"></i> ${c.photos?.length||0}</p></div><div class="car-actions"><button class="btn btn-success" onclick="openQuickPrice('${c.id}')"><i class="fas fa-dollar-sign"></i></button><button class="btn btn-warning" onclick="editCar('${c.id}')"><i class="fas fa-edit"></i></button><button class="btn btn-danger" onclick="deleteCar('${c.id}')"><i class="fas fa-trash"></i></button></div></div>`;
+            });
+        }
+
+        // Event Listeners
+        document.getElementById('addCarForm').onsubmit = function(e) {
+            e.preventDefault();
+            const getVal = (id) => document.getElementById(id).value;
+            CarManager.add({
+                title: getVal('carTitle'), brand: getVal('carBrand'), price: getVal('carPrice'),
+                year: getVal('carYear'), mileage: getVal('carMileage'), transmission: getVal('carTransmission'),
+                engine: getVal('carEngine'), horsepower: getVal('carHorsepower'), description: getVal('carDescription'),
+                features: getVal('carFeatures').split(',').filter(x=>x.trim()),
+                photos: getVal('carPhotos').split('\n').filter(x=>x.trim()),
+                videos: getVal('carVideos').split('\n').filter(x=>x.trim())
+            });
+            this.reset(); refreshAll(); document.querySelector('[data-tab="manage-cars"]').click(); showNotification('Car added!');
+        };
+        function deleteCar(id) { if(confirm('Delete?')) { CarManager.delete(id); refreshAll(); showNotification('Deleted.'); } }
+        function editCar(id) {
+            const c = CarManager.get(id); if(!c) return;
+            document.getElementById('editCarId').value = id;
+            ['Title','Brand','Price','Year','Mileage','Transmission','Engine','Horsepower','Description'].forEach(k => document.getElementById('editCar'+k).value = c[k.toLowerCase()]||'');
+            document.getElementById('editCarFeatures').value = (c.features||[]).join(', ');
+            document.getElementById('editCarPhotos').value = (c.photos||[]).join('\n');
+            document.getElementById('editCarVideos').value = (c.videos||[]).join('\n');
+            const m = (c.photos?.[0]||'').match(/images\/([^\/]+)\//);
+            if(m) document.getElementById('editCarFolderName').value = m[1];
+            document.getElementById('editCarModal').style.display = 'flex';
+        }
+        document.getElementById('editCarForm').onsubmit = function(e) {
+            e.preventDefault();
+            const id = document.getElementById('editCarId').value;
+            const getVal = (eid) => document.getElementById(eid).value;
+             CarManager.update(id, {
+                title: getVal('editCarTitle'), brand: getVal('editCarBrand'), price: getVal('editCarPrice'),
+                year: getVal('editCarYear'), mileage: getVal('editCarMileage'), transmission: getVal('editCarTransmission'),
+                engine: getVal('editCarEngine'), horsepower: getVal('editCarHorsepower'), description: getVal('editCarDescription'),
+                features: getVal('editCarFeatures').split(',').filter(x=>x.trim()),
+                photos: getVal('editCarPhotos').split('\n').filter(x=>x.trim()),
+                videos: getVal('editCarVideos').split('\n').filter(x=>x.trim())
+            });
+            document.getElementById('editCarModal').style.display = 'none'; refreshAll(); showNotification('Updated!');
+        };
+        function closeEditModal() { document.getElementById('editCarModal').style.display = 'none'; }
+        function openQuickPrice(id) {
+            const c = CarManager.get(id);
+            document.getElementById('quickPriceCarId').value = id;
+            document.getElementById('quickPriceCarTitle').textContent = c.brand + ' ' + c.title;
+            document.getElementById('quickPriceInput').value = c.price;
+            document.getElementById('quickPriceModal').style.display = 'flex';
+            setTimeout(()=>document.getElementById('quickPriceInput').select(),50);
+        }
+        function saveQuickPrice() {
+            CarManager.update(document.getElementById('quickPriceCarId').value, {price: document.getElementById('quickPriceInput').value});
+            document.getElementById('quickPriceModal').style.display = 'none'; refreshAll(); showNotification('Price updated');
+        }
+        document.getElementById('quickPriceInput').onkeypress = e => { if (e.key === 'Enter') saveQuickPrice(); };
+
+        // Settings
+        document.getElementById('settingsForm').onsubmit = e => {
+            e.preventDefault();
+            localStorage.setItem('siteSettings', JSON.stringify({
+                siteTitle: document.getElementById('siteTitle').value,
+                heroTitle: document.getElementById('heroTitle').value,
+                heroSubtitle: document.getElementById('heroSubtitle').value,
+                heroButtonText: document.getElementById('heroButtonText').value,
+                collectionTitle: document.getElementById('collectionTitle').value,
+                footerText: document.getElementById('footerText').value
+            }));
+            showNotification('Settings saved!');
+        };
+        function loadSettings() {
+            const s = JSON.parse(localStorage.getItem('siteSettings')) || {};
+            document.getElementById('siteTitle').value = s.siteTitle || '';
+            document.getElementById('heroTitle').value = s.heroTitle || '';
+            document.getElementById('heroSubtitle').value = s.heroSubtitle || '';
+            document.getElementById('heroButtonText').value = s.heroButtonText || '';
+            document.getElementById('collectionTitle').value = s.collectionTitle || '';
+            document.getElementById('footerText').value = s.footerText || '';
+        }
+
+        // Import/Export
+        function exportData() { const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([CarManager.exportData()],{type:'application/json'})); a.download='backup.json'; a.click(); }
+        function importData() { const i=document.createElement('input'); i.type='file'; i.accept='.json'; i.onchange=e=>{const r=new FileReader(); r.onload=ev=>{if(CarManager.importData(ev.target.result)){refreshAll();showNotification('Imported!');}else{showNotification('Error!','error');}}; r.readAsText(e.target.files[0]);}; i.click(); }
+        function showRawData() { document.getElementById('rawDataText').value = CarManager.exportData(); document.getElementById('rawDataContainer').style.display = 'block'; }
+        function hideRawData() { document.getElementById('rawDataContainer').style.display = 'none'; }
+        function updateFromRawData() { if(CarManager.importData(document.getElementById('rawDataText').value)){hideRawData();refreshAll();showNotification('Updated!');}else{showNotification('Error!','error');} }
+
+        // Init & Listeners
+        function refreshAll() { loadDashboardStats(); loadCarsList(); }
+        function clearAllCars() { if(confirm('DELETE ALL?')) { localStorage.removeItem('premiumAutoGalleryCars'); refreshAll(); showNotification('Deleted.'); } }
+        document.querySelectorAll('.nav-tab').forEach(t => t.onclick = () => {
+            document.querySelectorAll('.nav-tab, .tab-content').forEach(e => e.classList.remove('active'));
+            t.classList.add('active'); document.getElementById(t.dataset.tab).classList.add('active');
+            if(t.dataset.tab==='manage-cars') loadCarsList();
+        });
+        document.getElementById('logoutBtn').onclick = () => { localStorage.removeItem('adminAuthenticated'); window.location.href = 'admin-login.html'; };
+        document.onkeydown = e => { if(e.key === 'Escape') document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); };
+        document.getElementById('carFolderName').oninput = updateCarFolderPathPreview;
+        document.getElementById('editCarFolderName').oninput = updateCarFolderPathPreview;
+
+        function importCarsFromMainSite() {
+             const d={mercedes1:{id:"mercedes1",title:"Mercedes A180",brand:"mercedes",price:"23900 AZN",year:"2015",mileage:"193412 km",transmission:"Automatic",engine:"1.5L Diesel",horsepower:"630 hp",features:["AMG Performance Exhaust","Carbon Fiber Package","Night Package","Burmester 3D Sound"],description:"Luxury hatchback.",photos:["images/a180/1.jpg","images/a180/2.jpg","images/a180/3.jpg"],videos:["images/a180/vid1.mp4"]},mercedes2:{id:"mercedes2",title:"Mercedes E300",brand:"mercedes",price:"56000 AZN",year:"2019",mileage:"162671 km",transmission:"Automatic",engine:"2.0L Benzin",horsepower:"429 hp",features:["MBUX Hyperscreen","Executive Rear Seats"],description:"Luxury sedan.",photos:["images/e300/1.jpg","images/e300/2.jpg"],videos:[]},toyota1:{id:"toyota1",title:"Toyota Aqua",brand:"toyota",price:"16500 AZN",year:"2018",mileage:"211982 km",transmission:"Automatic",engine:"1.5L Hybrid",horsepower:"100 hp",features:["Eco Mode","EV Mode"],description:"Efficient hybrid.",photos:["images/aqua8339/1.jpg","images/aqua8339/2.jpg"],videos:[]},kia1:{id:"kia1",title:"Kia Carnival",brand:"kia",price:"28000 AZN",year:"2015",mileage:"127413 km",transmission:"Automatic",engine:"2.2L Diesel",horsepower:"291 hp",features:["All-Wheel Drive","Panoramic Sunroof"],description:"Family SUV.",photos:["images/carnival/1.jpg","images/carnival/2.jpg"],videos:[]},hyundai1:{id:"hyundai1",title:"Hyundai Palisade",brand:"hyundai",price:"53500 AZN",year:"2019",mileage:"190671 km",transmission:"Automatic",engine:"2.2L Diesel",horsepower:"291 hp",features:["3rd Row Seating","Nappa Leather"],description:"Premium SUV.",photos:["images/palisade/1.jpg","images/palisade/2.jpg"],videos:[]},hyundai2:{id:"hyundai2",title:"Hyundai Maxcruz",brand:"hyundai",price:"33500 AZN",year:"2016",mileage:"105992 km",transmission:"Automatic",engine:"2.2L Diesel",horsepower:"290 hp",features:["Sport Tuned","Heated Seats"],description:"Sporty SUV.",photos:["images/maxcruz/1.jpg","images/maxcruz/2.jpg"],videos:[]},landrover1:{id:"landrover1",title:"Land Rover Freelander 2",brand:"landrover",price:"19900 AZN",year:"2011",mileage:"150000 km",transmission:"Automatic",engine:"2.2L Diesel",horsepower:"355 hp",features:["Terrain Response","Air Suspension"],description:"Off-road capable luxury.",photos:["images/landrover/1.jpg","images/landrover/2.jpg"],videos:[]}};
+             CarManager.saveAll(d); refreshAll(); showNotification('Demo data loaded!');
+        }
+
+        document.getElementById('systemStatus').innerHTML = '<i class="fas fa-check-circle"></i> System Ready';
+        document.getElementById('systemStatus').className = 'system-status status-connected';
+        refreshAll(); loadSettings();
+    </script>
+</body>
+</html>

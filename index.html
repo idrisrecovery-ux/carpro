@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Auto Gallery | Luxury Redefined</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Darya Auto Gallery</h1>
+            <p>Lüksü hər kəs üçün əlçatan etdik</p>
+        </div>
+    </header>
+    
+    <div class="hero">
+        <div class="hero-content">
+            <h2>Performans. Rahatlıq. Seçim.</h2>
+            <p>Hər sürücü üçün uyğun kolleksiya — praktikliyi və prestiji birləşdirən avtomobillər.</p>
+            <a href="#collection" class="btn">Avtomobillərə keçid</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2 class="section-title" id="collection">Sizi gözləyən maşınlar</h2>
+        
+        <div class="search-section">
+    <div class="search-container">
+        <input type="text" class="search-box" id="searchInput" placeholder="Search by model, brand, or features...">
+        <div class="filters-container">
+            <select class="filter-select" id="priceFilter">
+                <option value="">All Prices</option>
+                <option value="0-20000">Under 20,000</option>
+                <option value="20000-30000">20,000 - 30,000</option>
+                <option value="30000-40000">30,000 - 40,000</option>
+                <option value="40000-999999">Over 40,000</option>
+            </select>
+            <select class="filter-select" id="yearFilter">
+                <option value="">All Years</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
+                <option value="2018">2018</option>
+                <option value="2017">2017</option>
+                <option value="2016">2016</option>
+                <option value="2015">2015</option>
+            </select>
+            <select class="filter-select" id="engineFilter">
+                <option value="">All Engines</option>
+                <option value="benzin">Benzin</option>
+                <option value="diesel">Diesel</option>
+                <option value="hybrid">Hybrid</option>
+                <option value="electric">Electric</option>
+            </select>
+        </div>
+    </div>
+</div>
+        
+        <div class="brands-menu">
+    <button class="brand-btn active" data-brand="all">All Brands</button>
+    <button class="brand-btn" data-brand="bmw">BMW</button>
+    <button class="brand-btn" data-brand="chevrolet">Chevrolet</button>
+    <button class="brand-btn" data-brand="hyundai">Hyundai</button>
+    <button class="brand-btn" data-brand="kia">Kia</button>
+    <button class="brand-btn" data-brand="landrover">Land Rover</button>
+    <button class="brand-btn" data-brand="mercedes">Mercedes</button>
+    <button class="brand-btn" data-brand="toyota">Toyota</button>
+</div>
+        
+        <div class="cars-grid" id="carsContainer">
+            <!-- Cars will be loaded here by JavaScript -->
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Darya Auto Gallery. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <div class="modal" id="carModal">
+        <div class="modal-content car-details-modal">
+            <div id="carModalContent">
+                <!-- Content will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="fullscreen-gallery" id="fullscreenGallery">
+        <div class="close-fullscreen" id="closeFullscreen">&times;</div>
+        <button class="gallery-nav gallery-prev" id="prevPhoto">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="gallery-nav gallery-next" id="nextPhoto">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="fullscreen-content" id="fullscreenContent">
+            <!-- Content will be inserted here by JavaScript -->
+        </div>
+        <div class="gallery-counter" id="galleryCounter">
+            <!-- Counter will be inserted here by JavaScript -->
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
