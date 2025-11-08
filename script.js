@@ -52,13 +52,11 @@ document.addEventListener('DOMContentLoaded', function() {
         filteredCars = Object.values(carDetails);
     }
 
+    // --- СТАНДАРТНЫЕ ДАННЫЕ (МАКСИМАЛЬНО ПОЛНЫЕ СПИСКИ ФОТО) ---
     function getDefaultCarData() {
         return {
-            // Mercedes Models
             mercedes1: {
-                id: "mercedes1", title: "Mercedes A180", brand: "mercedes", price: "23900 AZN", year: "2015", mileage: "193412 km", transmission: "Automatic", engine: "1.5L Diesel", horsepower: "630 hp",
-                features: ["AMG Performance Exhaust", "Carbon Fiber Package", "Night Package", "Burmester 3D Sound", "AMG Track Pace", "Rear-Axle Steering"],
-                description: "The Mercedes-AMG GT 63 S combines supercar performance with luxury sedan comfort.",
+                id: "mercedes1", title: "Mercedes A180", brand: "mercedes", price: "23900 AZN", year: "2015", mileage: "193412 km", engine: "1.5L Diesel",
                 photos: [
                     "images/a180/1.jpg", "images/a180/2.jpg", "images/a180/3.jpg", "images/a180/4.jpg", "images/a180/5.jpg",
                     "images/a180/6.jpg", "images/a180/7.jpg", "images/a180/8.jpg", "images/a180/9.jpg", "images/a180/10.jpg",
@@ -69,9 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 videos: ["images/a180/vid1.mp4"]
             },
             mercedes2: {
-                id: "mercedes2", title: "Mercedes E300", brand: "mercedes", price: "56000 AZN", year: "2019", mileage: "162671 km", transmission: "Automatic", engine: "2.0L Benzin", horsepower: "429 hp",
-                features: ["MBUX Hyperscreen", "Executive Rear Seats", "Energizing Comfort", "Burmester 4D Sound", "Magic Body Control", "Rear-Axle Steering"],
-                description: "The Mercedes-Benz S-Class redefines automotive luxury and technology.",
+                id: "mercedes2", title: "Mercedes E300", brand: "mercedes", price: "56000 AZN", year: "2019", mileage: "162671 km", engine: "2.0L Benzin",
                 photos: [
                     "images/e300/1.jpg", "images/e300/2.jpg", "images/e300/3.jpg", "images/e300/4.jpg", "images/e300/5.jpg",
                     "images/e300/6.jpg", "images/e300/7.jpg", "images/e300/8.jpg", "images/e300/9.jpg", "images/e300/10.jpg",
@@ -80,24 +76,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 ],
                 videos: ["images/e300/vid1.mp4", "images/e300/vid2.mp4", "images/e300/vid3.mp4"]
             },
-            
-            // Toyota Models
             toyota1: {
-                id: "toyota1", title: "Toyota Aqua", brand: "toyota", price: "16500 AZN", year: "2018", mileage: "211982 km", transmission: "Automatic", engine: "1.5L Hybrid", horsepower: "409 hp",
-                features: ["Multi-Terrain Select", "Crawl Control", "Kinetic Dynamic Suspension", "12.3-inch Multimedia Display", "JBL Premium Audio", "Panoramic View Monitor"],
-                description: "The Toyota Land Cruiser continues its legacy as the ultimate off-road luxury SUV.",
+                id: "toyota1", title: "Toyota Aqua", brand: "toyota", price: "16500 AZN", year: "2018", mileage: "211982 km", engine: "1.5L Hybrid",
                 photos: [
                     "images/aqua8339/1.jpg", "images/aqua8339/2.jpg", "images/aqua8339/3.jpg", "images/aqua8339/4.jpg",
                     "images/aqua8339/5.jpg", "images/aqua8339/6.jpg", "images/aqua8339/7.jpg", "images/aqua8339/8.jpg"
                 ],
                 videos: ["images/aqua8339/vid1.mp4", "images/aqua8339/vid2.mp4"]
             },
-            
-            // Kia Models
             kia1: {
-                id: "kia1", title: "Kia Carnival", brand: "kia", price: "28000 AZN", year: "2015", mileage: "127413 km", transmission: "Automatic", engine: "2.2L Diesel", horsepower: "291 hp",
-                features: ["All-Wheel Drive", "10.25-inch Touchscreen", "Harmon Kardon Audio", "Panoramic Sunroof", "Heated and Ventilated Seats", "Surround View Monitor"],
-                description: "The Kia Telluride sets new standards for three-row SUV luxury and capability.",
+                id: "kia1", title: "Kia Carnival", brand: "kia", price: "28000 AZN", year: "2015", mileage: "127413 km", engine: "2.2L Diesel",
                 photos: [
                     "images/carnival/1.jpg", "images/carnival/2.jpg", "images/carnival/3.jpg", "images/carnival/4.jpg", "images/carnival/5.jpg",
                     "images/carnival/6.jpg", "images/carnival/7.jpg", "images/carnival/8.jpg", "images/carnival/9.jpg", "images/carnival/10.jpg",
@@ -108,12 +96,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 ],
                 videos: ["images/carnival/vid1.mp4", "images/carnival/vid2.mp4"]
             },
-            
-            // Hyundai Models
             hyundai1: {
-                id: "hyundai1", title: "Hyundai Palisade", brand: "hyundai", price: "53500 AZN", year: "2019", mileage: "190671 km", transmission: "Automatic", engine: "2.2L Diesel", horsepower: "291 hp",
-                features: ["All-Wheel Drive", "12.3-inch Digital Cluster", "Harmon Kardon Audio", "Panoramic Sunroof", "Nappa Leather", "Surround View Monitor"],
-                description: "The Hyundai Palisade Calligraphy offers luxury features in a three-row SUV.",
+                id: "hyundai1", title: "Hyundai Palisade", brand: "hyundai", price: "53500 AZN", year: "2019", mileage: "190671 km", engine: "2.2L Diesel",
                 photos: [
                     "images/palisade/1.jpg", "images/palisade/2.jpg", "images/palisade/3.jpg", "images/palisade/4.jpg", "images/palisade/5.jpg",
                     "images/palisade/6.jpg", "images/palisade/7.jpg", "images/palisade/8.jpg", "images/palisade/9.jpg", "images/palisade/10.jpg",
@@ -122,9 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 videos: ["images/palisade/vid1.mp4", "images/palisade/vid2.mp4", "images/palisade/vid3.mp4"]
             },
             hyundai2: {
-                id: "hyundai2", title: "Hyundai Maxcruz", brand: "hyundai", price: "33500 AZN", year: "2016", mileage: "105992 km", transmission: "Automatic", engine: "2.2L Diesel", horsepower: "290 hp",
-                features: ["N Line Exterior", "Sport-Tuned Suspension", "Dual Exhaust", "10.25-inch Touchscreen", "Bose Premium Audio", "Heated and Ventilated Seats"],
-                description: "The Hyundai Sonata N Line adds sporty performance to the stylish sedan.",
+                id: "hyundai2", title: "Hyundai Maxcruz", brand: "hyundai", price: "33500 AZN", year: "2016", mileage: "105992 km", engine: "2.2L Diesel",
                 photos: [
                     "images/maxcruz/1.jpg", "images/maxcruz/2.jpg", "images/maxcruz/3.jpg", "images/maxcruz/4.jpg", "images/maxcruz/5.jpg",
                     "images/maxcruz/6.jpg", "images/maxcruz/7.jpg", "images/maxcruz/8.jpg", "images/maxcruz/9.jpg", "images/maxcruz/10.jpg",
@@ -132,12 +114,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 ],
                 videos: []
             },
-            
-            // Land Rover Models
             landrover1: {
-                id: "landrover1", title: "Land Rover Freelander 2", brand: "landrover", price: "19900 AZN", year: "2011", mileage: " ", transmission: "Automatic", engine: "2.2L Diesel", horsepower: "355 hp",
-                features: ["Terrain Response 2", "All-Terrain Progress Control", "Adaptive Dynamics", "Meridian Sound System", "Panoramic Roof", "Air Suspension"],
-                description: "The ultimate luxury SUV with unmatched off-road capability.",
+                id: "landrover1", title: "Land Rover Freelander 2", brand: "landrover", price: "19900 AZN", year: "2011", mileage: "150000 km", engine: "2.2L Diesel",
                 photos: [
                     "images/landrover/1.jpg", "images/landrover/2.jpg", "images/landrover/3.jpg", "images/landrover/4.jpg", "images/landrover/5.jpg",
                     "images/landrover/6.jpg", "images/landrover/7.jpg", "images/landrover/8.jpg", "images/landrover/9.jpg", "images/landrover/10.jpg",
@@ -238,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
         renderCarsGrid(filteredCars);
     }
 
-    // --- 6. МОДАЛКА (ULTRA CLEAN) ---
+    // --- 6. МОДАЛКА ---
     function openCarModal(carId) {
         currentCar = carDetails[carId];
         if (!currentCar) return;
@@ -296,9 +274,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function closeCarModal() {
         document.getElementById('carModal').style.display = 'none';
         document.body.classList.remove('modal-open');
+        currentCar = null;
     }
 
-    // --- 7. ФАЙЛЫ И ГАЛЕРЕЯ ---
+    // --- 7. ФАЙЛЫ ---
     function downloadFile(src, filename) {
         try {
             const a = document.createElement('a'); a.href = src; a.download = filename; a.target = '_blank';
