@@ -179,8 +179,7 @@
       "images/carnival/27.jpg"
     ],
     "videos": [
-      "images/carnival/vid1.mp4",
-      "images/carnival/vid2.mp4"
+      "images/carnival/vid1.mp4"
     ]
   },
   "hyundai1": {
@@ -313,5 +312,65 @@
       "images/landrover/vid1.mp4",
       "images/landrover/vid2.mp4"
     ]
+  },
+  "c_1762621797249": {
+    "title": "Kia K8",
+    "brand": "kia",
+    "price": "56000 AZN",
+    "year": "2023",
+    "mileage": "36000 km",
+    "transmission": "Automatic",
+    "engine": "2.5L benzin",
+    "horsepower": "",
+    "description": "",
+    "features": [],
+    "photos": [
+      "images/k8/1.jpg",
+      "images/k8/2 (1).jpg",
+      "images/k8/2 (2).jpg",
+      "images/k8/2 (3).jpg",
+      "images/k8/2 (4).jpg",
+      "images/k8/2 (5).jpg",
+      "images/k8/2 (6).jpg",
+      "images/k8/2 (7).jpg",
+      "images/k8/2 (8).jpg",
+      "images/k8/2 (9).jpg",
+      "images/k8/2 (10).jpg",
+      "images/k8/3 (1).jpg",
+      "images/k8/3 (2).jpg",
+      "images/k8/3 (3).jpg",
+      "images/k8/3 (4).jpg",
+      "images/k8/3 (5).jpg",
+      "images/k8/3 (6).jpg",
+      "images/k8/3 (7).jpg",
+      "images/k8/3 (8).jpg",
+      "images/k8/3 (9).jpg",
+      "images/k8/3 (10).jpg",
+      "images/k8/3 (11).jpg",
+      "images/k8/3 (12).jpg",
+      "images/k8/4 (1).jpg",
+      "images/k8/4 (2).jpg",
+      "images/k8/4 (3).jpg",
+      "images/k8/4 (4).jpg",
+      "images/k8/4 (5).jpg",
+      "images/k8/4 (6).jpg",
+      "images/k8/4 (7).jpg",
+      "images/k8/4 (8).jpg",
+      "images/k8/4 (9).jpg",
+      "images/k8/4 (10).jpg",
+      "images/k8/4 (11).jpg",
+      "images/k8/4 (12).jpg",
+      "images/k8/4 (13).jpg",
+      "images/k8/4 (14).jpg",
+      "images/k8/4 (15).jpg",
+      "images/k8/4 (16).jpg",
+      "images/k8/4 (17).jpg",
+      "images/k8/23.jpg"
+    ],
+    "videos": [
+      "images/k8/vid1.mp4",
+      "images/k8/vid2.mp4"
+    ],
+    "id": "c_1762621797249"
   }
 }
