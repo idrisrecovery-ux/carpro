@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
         filteredCars = Object.values(carDetails);
     }
 
-    // --- СТАНДАРТНЫЕ ДАННЫЕ (МАКСИМАЛЬНО ПОЛНЫЕ СПИСКИ ФОТО) ---
+    // --- СТАНДАРТНЫЕ ДАННЫЕ (9 МАШИН) ---
     function getDefaultCarData() {
         return {
             mercedes1: {
@@ -125,6 +125,27 @@ document.addEventListener('DOMContentLoaded', function() {
                     "images/landrover/26.jpg", "images/landrover/27.jpg", "images/landrover/28.jpg", "images/landrover/29.jpg"
                 ],
                 videos: ["images/landrover/vid1.mp4", "images/landrover/vid2.mp4"]
+            },
+            // --- НОВЫЕ МАШИНЫ ---
+            c_1762628597120: {
+                id: "c_1762628597120", title: "Kia K8", brand: "kia", price: "56000 AZN", year: "2023", mileage: "36000 km", engine: "2.5L Benzin",
+                photos: [
+                    "images/k8/1.jpg", "images/k8/2 (1).jpg", "images/k8/2 (2).jpg", "images/k8/2 (3).jpg", "images/k8/2 (4).jpg", "images/k8/2 (5).jpg", "images/k8/2 (6).jpg", "images/k8/2 (7).jpg", "images/k8/2 (8).jpg", "images/k8/2 (9).jpg", "images/k8/2 (10).jpg",
+                    "images/k8/3 (1).jpg", "images/k8/3 (2).jpg", "images/k8/3 (3).jpg", "images/k8/3 (4).jpg", "images/k8/3 (5).jpg", "images/k8/3 (6).jpg", "images/k8/3 (7).jpg", "images/k8/3 (8).jpg", "images/k8/3 (9).jpg", "images/k8/3 (10).jpg", "images/k8/3 (11).jpg", "images/k8/3 (12).jpg",
+                    "images/k8/4 (1).jpg", "images/k8/4 (2).jpg", "images/k8/4 (3).jpg", "images/k8/4 (4).jpg", "images/k8/4 (5).jpg", "images/k8/4 (6).jpg", "images/k8/4 (7).jpg", "images/k8/4 (8).jpg", "images/k8/4 (9).jpg", "images/k8/4 (10).jpg", "images/k8/4 (11).jpg", "images/k8/4 (12).jpg", "images/k8/4 (13).jpg", "images/k8/4 (14).jpg", "images/k8/4 (15).jpg", "images/k8/4 (16).jpg", "images/k8/4 (17).jpg",
+                    "images/k8/23.jpg"
+                ],
+                videos: ["images/k8/vid1.mp4", "images/k8/vid2.mp4"]
+            },
+            c_1762628771736: {
+                id: "c_1762628771736", title: "Hyundai Palisade", brand: "hyundai", price: "47600 AZN", year: "2019", mileage: "192317 km", engine: "2.2L Diesel",
+                photos: [
+                    "images/palisade2/2 (1).jpeg", "images/palisade2/2 (2).jpeg", "images/palisade2/2 (3).jpeg", "images/palisade2/2 (4).jpeg", "images/palisade2/2 (5).jpeg", "images/palisade2/2 (6).jpeg", "images/palisade2/2 (7).jpeg", "images/palisade2/2 (8).jpeg",
+                    "images/palisade2/3.jpeg", "images/palisade2/23.jpeg",
+                    "images/palisade2/31 (1).jpeg", "images/palisade2/31 (2).jpeg", "images/palisade2/31 (3).jpeg", "images/palisade2/31 (4).jpeg", "images/palisade2/31 (5).jpeg", "images/palisade2/31 (6).jpeg", "images/palisade2/31 (7).jpeg", "images/palisade2/31 (8).jpeg", "images/palisade2/31 (9).jpeg", "images/palisade2/31 (10).jpeg", "images/palisade2/31 (11).jpeg", "images/palisade2/31 (12).jpeg", "images/palisade2/31 (13).jpeg", "images/palisade2/31 (14).jpeg",
+                    "images/palisade2/233.jpeg"
+                ],
+                videos: []
             }
         };
     }

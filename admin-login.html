@@ -114,7 +114,7 @@
             const password = document.getElementById('password').value;
             
             // Simple authentication (in real app, use backend)
-            if (username === 'admin' && password === 'admin123') {
+            if (username === 'admin' && password === 'admin') {
                 localStorage.setItem('adminAuthenticated', 'true');
                 window.location.href = 'admin-panel.html';
             } else {
