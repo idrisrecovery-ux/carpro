@@ -6,47 +6,45 @@ document.addEventListener('DOMContentLoaded', function() {
     let filteredCars = [];
     let currentCar = null;
 
-    // --- 1. ПРИМЕНЕНИЕ НАСТРОЕК САЙТА ---
+    // --- 1. НАСТРОЙКИ САЙТА ---
     function applySiteSettings() {
         try {
             const settings = JSON.parse(localStorage.getItem('siteSettings'));
             if (settings) {
                 if (settings.siteTitle) {
                     document.title = settings.siteTitle;
-                    const headerH1 = document.querySelector('header h1');
-                    if (headerH1) headerH1.textContent = settings.siteTitle;
+                    const h1 = document.querySelector('header h1');
+                    if (h1) h1.textContent = settings.siteTitle;
                 }
                 if (settings.heroTitle) {
-                    const heroH2 = document.querySelector('.hero-content h2');
-                    if (heroH2) heroH2.textContent = settings.heroTitle;
+                    const h2 = document.querySelector('.hero-content h2');
+                    if (h2) h2.textContent = settings.heroTitle;
                 }
                 if (settings.heroSubtitle) {
-                    const heroP = document.querySelector('.hero-content p');
-                    if (heroP) heroP.textContent = settings.heroSubtitle;
+                    const p = document.querySelector('.hero-content p');
+                    if (p) p.textContent = settings.heroSubtitle;
                 }
                 if (settings.heroButtonText) {
-                    const heroBtn = document.querySelector('.hero-content .btn');
-                    if (heroBtn) heroBtn.textContent = settings.heroButtonText;
+                    const btn = document.querySelector('.hero-content .btn');
+                    if (btn) btn.textContent = settings.heroButtonText;
                 }
                 if (settings.collectionTitle) {
-                    const collectionH2 = document.getElementById('collection');
-                    if (collectionH2) collectionH2.textContent = settings.collectionTitle;
+                    const coll = document.getElementById('collection');
+                    if (coll) coll.textContent = settings.collectionTitle;
                 }
                 if (settings.footerText) {
-                    const footerP = document.querySelector('footer .container p');
-                    if (footerP) footerP.textContent = settings.footerText;
+                    const foot = document.querySelector('footer .container p');
+                    if (foot) foot.textContent = settings.footerText;
                 }
             }
-        } catch (e) {
-            console.warn('Error applying settings:', e);
-        }
+        } catch (e) { console.warn('Settings error:', e); }
     }
 
     // --- 2. ЗАГРУЗКА ДАННЫХ ---
     function loadCarDetails() {
-        const savedCars = localStorage.getItem('premiumAutoGalleryCars');
-        if (savedCars) {
-            carDetails = JSON.parse(savedCars);
+        const saved = localStorage.getItem('premiumAutoGalleryCars');
+        if (saved) {
+            carDetails = JSON.parse(saved);
         } else {
             carDetails = getDefaultCarData();
             saveCarDetails();
@@ -54,24 +52,107 @@ document.addEventListener('DOMContentLoaded', function() {
         filteredCars = Object.values(carDetails);
     }
 
-    // СТАНДАРТНЫЕ ДАННЫЕ (Только необходимые поля)
     function getDefaultCarData() {
         return {
-            mercedes1: { id: "mercedes1", title: "Mercedes A180", brand: "mercedes", price: "23900 AZN", year: "2015", mileage: "193412 km", engine: "1.5L Diesel", photos: ["images/a180/1.jpg", "images/a180/2.jpg", "images/a180/3.jpg", "images/a180/4.jpg", "images/a180/5.jpg"], videos: ["images/a180/vid1.mp4"] },
-            mercedes2: { id: "mercedes2", title: "Mercedes E300", brand: "mercedes", price: "56000 AZN", year: "2019", mileage: "162671 km", engine: "2.0L Benzin", photos: ["images/e300/1.jpg", "images/e300/2.jpg", "images/e300/3.jpg", "images/e300/4.jpg", "images/e300/5.jpg"], videos: ["images/e300/vid1.mp4", "images/e300/vid2.mp4", "images/e300/vid3.mp4"] },
-            toyota1: { id: "toyota1", title: "Toyota Aqua", brand: "toyota", price: "16500 AZN", year: "2018", mileage: "211982 km", engine: "1.5L Hybrid", photos: ["images/aqua8339/1.jpg", "images/aqua8339/2.jpg", "images/aqua8339/3.jpg", "images/aqua8339/4.jpg", "images/aqua8339/5.jpg"], videos: ["images/aqua8339/vid1.mp4", "images/aqua8339/vid2.mp4"] },
-            kia1: { id: "kia1", title: "Kia Carnival", brand: "kia", price: "28000 AZN", year: "2015", mileage: "127413 km", engine: "2.2L Diesel", photos: ["images/carnival/1.jpg", "images/carnival/2.jpg", "images/carnival/3.jpg", "images/carnival/4.jpg", "images/carnival/5.jpg"], videos: ["images/carnival/vid1.mp4"] },
-            hyundai1: { id: "hyundai1", title: "Hyundai Palisade", brand: "hyundai", price: "53500 AZN", year: "2019", mileage: "190671 km", engine: "2.2L Diesel", photos: ["images/palisade/1.jpg", "images/palisade/2.jpg", "images/palisade/3.jpg", "images/palisade/4.jpg", "images/palisade/5.jpg"], videos: ["images/palisade/vid1.mp4"] },
-            hyundai2: { id: "hyundai2", title: "Hyundai Maxcruz", brand: "hyundai", price: "33500 AZN", year: "2016", mileage: "105992 km", engine: "2.2L Diesel", photos: ["images/maxcruz/1.jpg", "images/maxcruz/2.jpg", "images/maxcruz/3.jpg", "images/maxcruz/4.jpg", "images/maxcruz/5.jpg"], videos: [] },
-            landrover1: { id: "landrover1", title: "Land Rover Freelander 2", brand: "landrover", price: "19900 AZN", year: "2011", mileage: "150000 km", engine: "2.2L Diesel", photos: ["images/landrover/1.jpg", "images/landrover/2.jpg", "images/landrover/3.jpg", "images/landrover/4.jpg", "images/landrover/5.jpg"], videos: ["images/landrover/vid1.mp4"] }
+            // Mercedes Models
+            mercedes1: {
+                id: "mercedes1", title: "Mercedes A180", brand: "mercedes", price: "23900 AZN", year: "2015", mileage: "193412 km", transmission: "Automatic", engine: "1.5L Diesel", horsepower: "630 hp",
+                features: ["AMG Performance Exhaust", "Carbon Fiber Package", "Night Package", "Burmester 3D Sound", "AMG Track Pace", "Rear-Axle Steering"],
+                description: "The Mercedes-AMG GT 63 S combines supercar performance with luxury sedan comfort.",
+                photos: [
+                    "images/a180/1.jpg", "images/a180/2.jpg", "images/a180/3.jpg", "images/a180/4.jpg", "images/a180/5.jpg",
+                    "images/a180/6.jpg", "images/a180/7.jpg", "images/a180/8.jpg", "images/a180/9.jpg", "images/a180/10.jpg",
+                    "images/a180/11.jpg", "images/a180/12.jpg", "images/a180/13.jpg", "images/a180/14.jpg", "images/a180/15.jpg",
+                    "images/a180/16.jpg", "images/a180/17.jpg", "images/a180/18.jpg", "images/a180/19.jpg", "images/a180/20.jpg",
+                    "images/a180/21.jpg", "images/a180/22.jpg", "images/a180/23.jpg", "images/a180/24.jpg", "images/a180/25.jpg"
+                ],
+                videos: ["images/a180/vid1.mp4"]
+            },
+            mercedes2: {
+                id: "mercedes2", title: "Mercedes E300", brand: "mercedes", price: "56000 AZN", year: "2019", mileage: "162671 km", transmission: "Automatic", engine: "2.0L Benzin", horsepower: "429 hp",
+                features: ["MBUX Hyperscreen", "Executive Rear Seats", "Energizing Comfort", "Burmester 4D Sound", "Magic Body Control", "Rear-Axle Steering"],
+                description: "The Mercedes-Benz S-Class redefines automotive luxury and technology.",
+                photos: [
+                    "images/e300/1.jpg", "images/e300/2.jpg", "images/e300/3.jpg", "images/e300/4.jpg", "images/e300/5.jpg",
+                    "images/e300/6.jpg", "images/e300/7.jpg", "images/e300/8.jpg", "images/e300/9.jpg", "images/e300/10.jpg",
+                    "images/e300/11.jpg", "images/e300/12.jpg", "images/e300/13.jpg", "images/e300/14.jpg", "images/e300/15.jpg",
+                    "images/e300/16.jpg", "images/e300/17.jpg", "images/e300/18.jpg", "images/e300/19.jpg", "images/e300/20.jpg"
+                ],
+                videos: ["images/e300/vid1.mp4", "images/e300/vid2.mp4", "images/e300/vid3.mp4"]
+            },
+            
+            // Toyota Models
+            toyota1: {
+                id: "toyota1", title: "Toyota Aqua", brand: "toyota", price: "16500 AZN", year: "2018", mileage: "211982 km", transmission: "Automatic", engine: "1.5L Hybrid", horsepower: "409 hp",
+                features: ["Multi-Terrain Select", "Crawl Control", "Kinetic Dynamic Suspension", "12.3-inch Multimedia Display", "JBL Premium Audio", "Panoramic View Monitor"],
+                description: "The Toyota Land Cruiser continues its legacy as the ultimate off-road luxury SUV.",
+                photos: [
+                    "images/aqua8339/1.jpg", "images/aqua8339/2.jpg", "images/aqua8339/3.jpg", "images/aqua8339/4.jpg",
+                    "images/aqua8339/5.jpg", "images/aqua8339/6.jpg", "images/aqua8339/7.jpg", "images/aqua8339/8.jpg"
+                ],
+                videos: ["images/aqua8339/vid1.mp4", "images/aqua8339/vid2.mp4"]
+            },
+            
+            // Kia Models
+            kia1: {
+                id: "kia1", title: "Kia Carnival", brand: "kia", price: "28000 AZN", year: "2015", mileage: "127413 km", transmission: "Automatic", engine: "2.2L Diesel", horsepower: "291 hp",
+                features: ["All-Wheel Drive", "10.25-inch Touchscreen", "Harmon Kardon Audio", "Panoramic Sunroof", "Heated and Ventilated Seats", "Surround View Monitor"],
+                description: "The Kia Telluride sets new standards for three-row SUV luxury and capability.",
+                photos: [
+                    "images/carnival/1.jpg", "images/carnival/2.jpg", "images/carnival/3.jpg", "images/carnival/4.jpg", "images/carnival/5.jpg",
+                    "images/carnival/6.jpg", "images/carnival/7.jpg", "images/carnival/8.jpg", "images/carnival/9.jpg", "images/carnival/10.jpg",
+                    "images/carnival/11.jpg", "images/carnival/12.jpg", "images/carnival/13.jpg", "images/carnival/14.jpg", "images/carnival/15.jpg",
+                    "images/carnival/16.jpg", "images/carnival/17.jpg", "images/carnival/18.jpg", "images/carnival/19.jpg", "images/carnival/20.jpg",
+                    "images/carnival/21.jpg", "images/carnival/22.jpg", "images/carnival/23.jpg", "images/carnival/24.jpg", "images/carnival/25.jpg",
+                    "images/carnival/26.jpg", "images/carnival/27.jpg"
+                ],
+                videos: ["images/carnival/vid1.mp4", "images/carnival/vid2.mp4"]
+            },
+            
+            // Hyundai Models
+            hyundai1: {
+                id: "hyundai1", title: "Hyundai Palisade", brand: "hyundai", price: "53500 AZN", year: "2019", mileage: "190671 km", transmission: "Automatic", engine: "2.2L Diesel", horsepower: "291 hp",
+                features: ["All-Wheel Drive", "12.3-inch Digital Cluster", "Harmon Kardon Audio", "Panoramic Sunroof", "Nappa Leather", "Surround View Monitor"],
+                description: "The Hyundai Palisade Calligraphy offers luxury features in a three-row SUV.",
+                photos: [
+                    "images/palisade/1.jpg", "images/palisade/2.jpg", "images/palisade/3.jpg", "images/palisade/4.jpg", "images/palisade/5.jpg",
+                    "images/palisade/6.jpg", "images/palisade/7.jpg", "images/palisade/8.jpg", "images/palisade/9.jpg", "images/palisade/10.jpg",
+                    "images/palisade/11.jpg", "images/palisade/12.jpg", "images/palisade/13.jpg"
+                ],
+                videos: ["images/palisade/vid1.mp4", "images/palisade/vid2.mp4", "images/palisade/vid3.mp4"]
+            },
+            hyundai2: {
+                id: "hyundai2", title: "Hyundai Maxcruz", brand: "hyundai", price: "33500 AZN", year: "2016", mileage: "105992 km", transmission: "Automatic", engine: "2.2L Diesel", horsepower: "290 hp",
+                features: ["N Line Exterior", "Sport-Tuned Suspension", "Dual Exhaust", "10.25-inch Touchscreen", "Bose Premium Audio", "Heated and Ventilated Seats"],
+                description: "The Hyundai Sonata N Line adds sporty performance to the stylish sedan.",
+                photos: [
+                    "images/maxcruz/1.jpg", "images/maxcruz/2.jpg", "images/maxcruz/3.jpg", "images/maxcruz/4.jpg", "images/maxcruz/5.jpg",
+                    "images/maxcruz/6.jpg", "images/maxcruz/7.jpg", "images/maxcruz/8.jpg", "images/maxcruz/9.jpg", "images/maxcruz/10.jpg",
+                    "images/maxcruz/11.jpg", "images/maxcruz/12.jpg", "images/maxcruz/13.jpg"
+                ],
+                videos: []
+            },
+            
+            // Land Rover Models
+            landrover1: {
+                id: "landrover1", title: "Land Rover Freelander 2", brand: "landrover", price: "19900 AZN", year: "2011", mileage: " ", transmission: "Automatic", engine: "2.2L Diesel", horsepower: "355 hp",
+                features: ["Terrain Response 2", "All-Terrain Progress Control", "Adaptive Dynamics", "Meridian Sound System", "Panoramic Roof", "Air Suspension"],
+                description: "The ultimate luxury SUV with unmatched off-road capability.",
+                photos: [
+                    "images/landrover/1.jpg", "images/landrover/2.jpg", "images/landrover/3.jpg", "images/landrover/4.jpg", "images/landrover/5.jpg",
+                    "images/landrover/6.jpg", "images/landrover/7.jpg", "images/landrover/8.jpg", "images/landrover/9.jpg", "images/landrover/10.jpg",
+                    "images/landrover/11.jpg", "images/landrover/12.jpg", "images/landrover/13.jpg", "images/landrover/14.jpg", "images/landrover/15.jpg",
+                    "images/landrover/16.jpg", "images/landrover/17.jpg", "images/landrover/18.jpg", "images/landrover/19.jpg", "images/landrover/20.jpg",
+                    "images/landrover/21.jpg", "images/landrover/22.jpg", "images/landrover/23.jpg", "images/landrover/24.jpg", "images/landrover/25.jpg",
+                    "images/landrover/26.jpg", "images/landrover/27.jpg", "images/landrover/28.jpg", "images/landrover/29.jpg"
+                ],
+                videos: ["images/landrover/vid1.mp4", "images/landrover/vid2.mp4"]
+            }
         };
     }
+    function saveCarDetails() { localStorage.setItem('premiumAutoGalleryCars', JSON.stringify(carDetails)); }
 
-    function saveCarDetails() {
-        localStorage.setItem('premiumAutoGalleryCars', JSON.stringify(carDetails));
-    }
-
-    // --- 3. ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ ---
+    // --- 3. ИНИЦИАЛИЗАЦИЯ ---
     function initCarsGrid() {
         applySiteSettings();
         loadCarDetails();
@@ -79,141 +160,85 @@ document.addEventListener('DOMContentLoaded', function() {
         setupEventListeners();
     }
     
-    // --- 4. НАСТРОЙКА СЛУШАТЕЛЕЙ СОБЫТИЙ ---
+    // --- 4. СЛУШАТЕЛИ ---
     function setupEventListeners() {
-        // Фильтры
-        document.getElementById('searchInput').addEventListener('input', filterCars);
-        document.getElementById('priceFilter').addEventListener('change', filterCars);
-        document.getElementById('yearFilter').addEventListener('change', filterCars);
-        document.getElementById('engineFilter').addEventListener('change', filterCars);
-        
-        // Кнопки брендов
-        document.querySelectorAll('.brand-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                document.querySelectorAll('.brand-btn').forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
+        ['searchInput', 'priceFilter', 'yearFilter', 'engineFilter'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener(el.tagName === 'INPUT' ? 'input' : 'change', filterCars);
+        });
+        document.querySelectorAll('.brand-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.brand-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
                 filterCars();
             });
         });
-
-        // Закрытие модалок по клику на фон
-        document.getElementById('carModal').addEventListener('click', function(e) {
-            if (e.target === this) closeCarModal();
-        });
-
-        // Навигация галереи
-        document.getElementById('prevPhoto').addEventListener('click', function() {
-            if (currentPhotoIndex > 0) {
-                currentPhotoIndex--;
-                updateFullscreenGallery();
-            }
-        });
-        document.getElementById('nextPhoto').addEventListener('click', function() {
-            if (currentPhotoIndex < currentCarPhotos.length - 1) {
-                currentPhotoIndex++;
-                updateFullscreenGallery();
-            }
-        });
+        document.getElementById('carModal').addEventListener('click', e => { if (e.target === this) closeCarModal(); });
+        document.getElementById('prevPhoto').addEventListener('click', () => navigateGallery(-1));
+        document.getElementById('nextPhoto').addEventListener('click', () => navigateGallery(1));
         document.getElementById('closeFullscreen').addEventListener('click', closeFullscreenGallery);
-
-        // Клавиатура
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', e => {
             if (document.getElementById('fullscreenGallery').style.display === 'flex') {
-                if (e.key === 'ArrowLeft' && currentPhotoIndex > 0) { currentPhotoIndex--; updateFullscreenGallery(); }
-                if (e.key === 'ArrowRight' && currentPhotoIndex < currentCarPhotos.length - 1) { currentPhotoIndex++; updateFullscreenGallery(); }
+                if (e.key === 'ArrowLeft') navigateGallery(-1);
+                if (e.key === 'ArrowRight') navigateGallery(1);
                 if (e.key === 'Escape') closeFullscreenGallery();
-            } else if (document.getElementById('carModal').style.display === 'flex' && e.key === 'Escape') {
-                closeCarModal();
-            }
+            } else if (document.getElementById('carModal').style.display === 'flex' && e.key === 'Escape') closeCarModal();
         });
     }
     
-    // --- 5. РЕНДЕР СПИСКА МАШИН ---
+    // --- 5. РЕНДЕР ---
     function renderCarsGrid(cars) {
-        const carsContainer = document.getElementById('carsContainer');
-        if (!carsContainer) return;
-
+        const container = document.getElementById('carsContainer');
+        if (!container) return;
         if (cars.length === 0) {
-            carsContainer.innerHTML = `
-                <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: #7f8c8d;">
-                    <h3>No vehicles found</h3>
-                    <p>Try adjusting your filters</p>
-                </div>
-            `;
+            container.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:#7f8c8d;"><h3>No vehicles found</h3></div>`;
             return;
         }
-        
-        carsContainer.innerHTML = '';
-        
-        // Отображаем новые первыми
+        container.innerHTML = '';
         [...cars].reverse().forEach(car => {
-            const photo = (car.photos && car.photos.length > 0) ? car.photos[0] : 'https://via.placeholder.com/350x220?text=No+Image';
-            
-            const carCard = document.createElement('div');
-            carCard.className = 'car-card';
-            carCard.dataset.brand = car.brand;
-            carCard.innerHTML = `
-                <div class="car-image" style="background-image: url('${photo}')" onerror="this.style.backgroundImage='url(https://via.placeholder.com/350x220?text=Image+Not+Found)'"></div>
-                <div class="car-details">
-                    <h3 class="car-title">${car.title}</h3>
-                    <div class="car-price">${car.price}</div>
-                    <div class="car-specs">
-                        <span><i class="fas fa-calendar-alt"></i> ${car.year}</span>
-                        <span><i class="fas fa-tachometer-alt"></i> ${car.mileage || ''}</span>
-                        <span><i class="fas fa-gas-pump"></i> ${car.engine}</span>
+            const photo = (car.photos && car.photos.length) ? car.photos[0] : 'https://via.placeholder.com/350x220?text=No+Image';
+            container.innerHTML += `
+                <div class="car-card" data-brand="${car.brand}">
+                    <div class="car-image" style="background-image: url('${photo}')" onerror="this.style.backgroundImage='url(https://via.placeholder.com/350x220?text=Error)'"></div>
+                    <div class="car-details">
+                        <h3 class="car-title">${car.title}</h3>
+                        <div class="car-price">${car.price}</div>
+                        <div class="car-specs">
+                            <span><i class="fas fa-calendar-alt"></i> ${car.year}</span>
+                            <span><i class="fas fa-tachometer-alt"></i> ${car.mileage || ''}</span>
+                            <span><i class="fas fa-gas-pump"></i> ${car.engine}</span>
+                        </div>
+                        <button class="btn view-details" data-car="${car.id}">View Details</button>
                     </div>
-                    <button class="btn view-details" data-car="${car.id}">View Details</button>
                 </div>
             `;
-            carsContainer.appendChild(carCard);
         });
-        
-        // Подключаем кнопки
-        document.querySelectorAll('.view-details').forEach(btn => {
-            btn.addEventListener('click', function() {
-                openCarModal(this.getAttribute('data-car'));
-            });
-        });
+        document.querySelectorAll('.view-details').forEach(btn => btn.addEventListener('click', () => openCarModal(btn.getAttribute('data-car'))));
     }
     
-    // --- 6. ЛОГИКА ФИЛЬТРАЦИИ ---
     function filterCars() {
         const search = document.getElementById('searchInput').value.toLowerCase();
-        const priceFilter = document.getElementById('priceFilter').value;
-        const yearFilter = document.getElementById('yearFilter').value;
-        const engineFilter = document.getElementById('engineFilter').value;
-        const activeBrand = document.querySelector('.brand-btn.active').getAttribute('data-brand');
+        const priceVal = document.getElementById('priceFilter').value;
+        const yearVal = document.getElementById('yearFilter').value;
+        const engineVal = document.getElementById('engineFilter').value;
+        const brandVal = document.querySelector('.brand-btn.active').getAttribute('data-brand');
         
         filteredCars = Object.values(carDetails).filter(car => {
-            // Бренд
-            if (activeBrand !== 'all' && car.brand !== activeBrand) return false;
-            
-            // Поиск
-            const matchesSearch = !search || 
-                car.title.toLowerCase().includes(search) ||
-                car.brand.toLowerCase().includes(search);
-            if (!matchesSearch) return false;
-            
-            // Год
-            if (yearFilter && car.year != yearFilter) return false;
-            
-            // Двигатель
-            if (engineFilter && !car.engine.toLowerCase().includes(engineFilter)) return false;
-            
-            // Цена
-            if (priceFilter) {
+            if (brandVal !== 'all' && car.brand !== brandVal) return false;
+            if (search && !car.title.toLowerCase().includes(search) && !car.brand.toLowerCase().includes(search)) return false;
+            if (yearVal && car.year != yearVal) return false;
+            if (engineVal && !car.engine.toLowerCase().includes(engineVal)) return false;
+            if (priceVal) {
                 const p = parseInt(car.price.replace(/[^0-9]/g, '')) || 0;
-                const [min, max] = priceFilter.split('-').map(Number);
+                const [min, max] = priceVal.split('-').map(Number);
                 if (p < min || p > max) return false;
             }
-            
             return true;
         });
-        
         renderCarsGrid(filteredCars);
     }
 
-    // --- 7. МОДАЛЬНОЕ ОКНО (ЧИСТАЯ ВЕРСИЯ) ---
+    // --- 6. МОДАЛКА (ULTRA CLEAN) ---
     function openCarModal(carId) {
         currentCar = carDetails[carId];
         if (!currentCar) return;
@@ -221,262 +246,121 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const modal = document.getElementById('carModal');
         const content = document.getElementById('carModalContent');
-        
         modal.style.display = 'flex';
         document.body.classList.add('modal-open');
-        
-        // Скролл вверх при открытии
-        setTimeout(() => {
-            modal.scrollTop = 0;
-            content.scrollTop = 0;
-        }, 50);
+        setTimeout(() => { modal.scrollTop = 0; content.scrollTop = 0; }, 10);
 
-        // Генерируем HTML для фото
-        let photosHTML = '';
-        if (currentCarPhotos.length > 0) {
-            currentCarPhotos.forEach((src, i) => {
-                photosHTML += `
-                    <div class="gallery-item-container">
-                        <div class="gallery-item" style="background-image: url('${src}')" data-index="${i}"></div>
-                        <button class="download-single" data-src="${src}" data-filename="photo_${i+1}.jpg">
-                            <i class="fas fa-download"></i> Download
-                        </button>
-                    </div>
-                `;
-            });
-        } else {
-            photosHTML = '<p>No photos available</p>';
-        }
+        const photosHTML = currentCarPhotos.length ? currentCarPhotos.map((src, i) => 
+            `<div class="gallery-item-container"><div class="gallery-item" style="background-image: url('${src}')" data-index="${i}"></div><button class="download-single" data-src="${src}" data-filename="photo_${i+1}.jpg"><i class="fas fa-download"></i> Download</button></div>`
+        ).join('') : '<p>No photos</p>';
 
-        // Генерируем HTML для видео
-        let videosHTML = '';
-        if (currentCar.videos && currentCar.videos.length > 0) {
-            videosHTML += '<div class="car-gallery-section"><h4 class="gallery-title">Videos</h4><div class="video-gallery">';
-            currentCar.videos.forEach((src, i) => {
-                videosHTML += `
-                    <div class="video-item">
-                        <video controls>
-                            <source src="${src}" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                        <button class="download-single" data-src="${src}" data-filename="video_${i+1}.mp4" style="margin-top:10px;">
-                            <i class="fas fa-download"></i> Download
-                        </button>
-                    </div>
-                `;
-            });
-            videosHTML += '</div></div>';
-        }
+        const videosHTML = (currentCar.videos && currentCar.videos.length) ? 
+            `<div class="car-gallery-section"><h4 class="gallery-title">Videos</h4><div class="video-gallery">${currentCar.videos.map((src, i) => 
+                `<div class="video-item"><video controls><source src="${src}" type="video/mp4"></video><button class="download-single" data-src="${src}" data-filename="video_${i+1}.mp4" style="margin-top:10px;"><i class="fas fa-download"></i> Download</button></div>`
+            ).join('')}</div></div>` : '';
 
-        // Собираем контент модалки (БЕЗ Description и Features)
         content.innerHTML = `
-            <button class="modal-close-top" id="modalCloseTop">
-                <i class="fas fa-times"></i>
-            </button>
-            
+            <button class="modal-close-top" id="modalCloseTop"><i class="fas fa-times"></i></button>
             <div class="car-details-header">
                 <h3>${currentCar.title}</h3>
                 <div class="car-price">${currentCar.price}</div>
-                <div class="car-specs" style="display: flex; gap: 2rem; margin-top: 1rem; flex-wrap: wrap; color: #7f8c8d;">
+                <div class="car-specs" style="display:flex; gap:2rem; margin-top:1rem; color:#777; flex-wrap:wrap;">
                     <span><i class="fas fa-calendar-alt"></i> ${currentCar.year}</span>
                     <span><i class="fas fa-tachometer-alt"></i> ${currentCar.mileage || ''}</span>
                     <span><i class="fas fa-gas-pump"></i> ${currentCar.engine}</span>
                 </div>
             </div>
-            
-            <div class="car-details-content" style="padding-top: 1rem;">
+            <div class="car-details-content" style="padding-top:1rem;">
                 <div class="car-gallery-section">
-                    <h4 class="gallery-title">Photo Gallery (${currentCarPhotos.length})</h4>
-                    
+                    <h4 class="gallery-title">Photos (${currentCarPhotos.length})</h4>
                     <div class="gallery-actions">
-                        ${currentCarPhotos.length > 0 ? `
-                            <button class="btn btn-secondary" id="downloadAllPhotos">
-                                <i class="fas fa-download"></i> Download All Photos
-                            </button>
-                        ` : ''}
-                        ${currentCar.videos && currentCar.videos.length > 0 ? `
-                            <button class="btn btn-tertiary" id="downloadAllVideos">
-                                <i class="fas fa-download"></i> Download All Videos
-                            </button>
-                        ` : ''}
-                        <div id="downloadProgress" class="download-progress" style="display: none;">
-                            Preparing download...
-                        </div>
+                        ${currentCarPhotos.length ? `<button class="btn btn-secondary" id="downloadAllPhotos"><i class="fas fa-download"></i> Download All Photos</button>` : ''}
+                        ${currentCar.videos && currentCar.videos.length ? `<button class="btn btn-tertiary" id="downloadAllVideos"><i class="fas fa-download"></i> Download All Videos</button>` : ''}
+                        <div id="downloadProgress" class="download-progress" style="display:none;">Preparing...</div>
                     </div>
-                    
-                    <div class="photo-gallery">
-                        ${photosHTML}
-                    </div>
+                    <div class="photo-gallery">${photosHTML}</div>
                 </div>
-                
                 ${videosHTML}
-                
-                <button class="close-modal" id="closeModalBottom" style="margin-top: 2rem;">Close Details</button>
+                <button class="close-modal" id="closeModalBottom">Close</button>
             </div>
         `;
 
-        // Вешаем обработчики
         document.getElementById('modalCloseTop').onclick = closeCarModal;
         document.getElementById('closeModalBottom').onclick = closeCarModal;
-        
-        document.querySelectorAll('.gallery-item').forEach(item => {
-            item.onclick = function() {
-                openFullscreenGallery(parseInt(this.getAttribute('data-index')));
-            };
-        });
-        
-        document.querySelectorAll('.download-single').forEach(btn => {
-            btn.onclick = function() {
-                downloadSingleFile(this.getAttribute('data-src'), this.getAttribute('data-filename'));
-            };
-        });
-
-        if (document.getElementById('downloadAllPhotos')) {
-            document.getElementById('downloadAllPhotos').onclick = function() {
-                downloadAllPhotos(currentCar);
-            };
-        }
-        if (document.getElementById('downloadAllVideos')) {
-            document.getElementById('downloadAllVideos').onclick = function() {
-                downloadAllVideos(currentCar);
-            };
-        }
+        document.querySelectorAll('.gallery-item').forEach(item => item.onclick = () => openFullscreen(parseInt(item.dataset.index)));
+        document.querySelectorAll('.download-single').forEach(btn => btn.onclick = () => downloadFile(btn.dataset.src, btn.dataset.filename));
+        if(document.getElementById('downloadAllPhotos')) document.getElementById('downloadAllPhotos').onclick = () => downloadAll(currentCar, 'photos');
+        if(document.getElementById('downloadAllVideos')) document.getElementById('downloadAllVideos').onclick = () => downloadAll(currentCar, 'videos');
     }
 
     function closeCarModal() {
         document.getElementById('carModal').style.display = 'none';
         document.body.classList.remove('modal-open');
-        currentCar = null;
     }
 
-    // --- 8. ФУНКЦИИ СКАЧИВАНИЯ ---
-    function downloadSingleFile(src, filename) {
+    // --- 7. ФАЙЛЫ И ГАЛЕРЕЯ ---
+    function downloadFile(src, filename) {
         try {
-            const link = document.createElement('a');
-            link.href = src;
-            link.download = filename;
-            link.target = '_blank';
-            link.style.display = 'none';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            showDownloadNotification(filename);
-        } catch (error) {
-            // Fallback если прямая ссылка не работает (например, cross-origin)
-            window.open(src, '_blank');
-        }
+            const a = document.createElement('a'); a.href = src; a.download = filename; a.target = '_blank';
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
+            showNotify(filename);
+        } catch (e) { window.open(src, '_blank'); }
     }
-
-    function showDownloadNotification(filename) {
-        const notification = document.createElement('div');
-        notification.className = 'download-notification';
-        notification.innerHTML = `<i class="fas fa-check-circle"></i> Downloading: ${filename}`;
-        document.body.appendChild(notification);
-        setTimeout(() => notification.classList.add('show'), 100);
-        setTimeout(() => {
-            notification.classList.remove('show');
-            setTimeout(() => notification.remove(), 300);
-        }, 3000);
+    function showNotify(filename) {
+        const n = document.createElement('div'); n.className = 'download-notification';
+        n.innerHTML = `<i class="fas fa-check-circle"></i> Downloading: ${filename}`;
+        document.body.appendChild(n); setTimeout(() => n.classList.add('show'), 100);
+        setTimeout(() => { n.classList.remove('show'); setTimeout(() => n.remove(), 300); }, 3000);
     }
-
-    // --- 9. ПОЛНОЭКРАННАЯ ГАЛЕРЕЯ ---
-    function openFullscreenGallery(index) {
-        currentPhotoIndex = index;
-        updateFullscreenGallery();
-        document.getElementById('fullscreenGallery').style.display = 'flex';
-    }
-
-    function updateFullscreenGallery() {
-        const content = document.getElementById('fullscreenContent');
-        content.innerHTML = `<img src="${currentCarPhotos[currentPhotoIndex]}" style="max-width: 100%; max-height: 90vh; border-radius: 8px;">`;
+    function openFullscreen(index) { currentPhotoIndex = index; updateGallery(); document.getElementById('fullscreenGallery').style.display = 'flex'; }
+    function updateGallery() {
+        document.getElementById('fullscreenContent').innerHTML = `<img src="${currentCarPhotos[currentPhotoIndex]}" style="max-width:100%; max-height:90vh; border-radius:8px;">`;
         document.getElementById('galleryCounter').textContent = `${currentPhotoIndex + 1} / ${currentCarPhotos.length}`;
     }
-
-    function closeFullscreenGallery() {
-        document.getElementById('fullscreenGallery').style.display = 'none';
+    function closeFullscreenGallery() { document.getElementById('fullscreenGallery').style.display = 'none'; }
+    function navigateGallery(dir) {
+        const newIndex = currentPhotoIndex + dir;
+        if (newIndex >= 0 && newIndex < currentCarPhotos.length) { currentPhotoIndex = newIndex; updateGallery(); }
     }
 
-    // --- 10. МАССОВОЕ СКАЧИВАНИЕ (JSZip) ---
-    async function downloadAllPhotos(car) {
-        const btn = document.getElementById('downloadAllPhotos');
+    // --- 8. МАССОВОЕ СКАЧИВАНИЕ ---
+    async function downloadAll(car, type) {
+        if (typeof JSZip === 'undefined') return alert('Error: JSZip library missing!');
+        const btnId = type === 'photos' ? 'downloadAllPhotos' : 'downloadAllVideos';
+        const files = type === 'photos' ? car.photos : car.videos;
+        const ext = type === 'photos' ? 'jpg' : 'mp4';
+        const btn = document.getElementById(btnId);
         const progress = document.getElementById('downloadProgress');
-        if (!btn) return;
+        if (!btn || !files.length) return;
         
-        btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
-        progress.style.display = 'block';
-        progress.className = 'download-progress';
-        progress.textContent = 'Starting download...';
+        btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
+        progress.style.display = 'block'; progress.className = 'download-progress';
         
         try {
             const zip = new JSZip();
-            const folder = zip.folder(`${car.title} Photos`);
-            
-            for (let i = 0; i < car.photos.length; i++) {
-                progress.textContent = `Loading photo ${i+1} of ${car.photos.length}...`;
-                const response = await fetch(car.photos[i]);
-                if (!response.ok) throw new Error('Network error');
-                const blob = await response.blob();
-                folder.file(`photo_${i+1}.jpg`, blob);
+            const folder = zip.folder(`${car.title} ${type}`);
+            let count = 0;
+            for (let i = 0; i < files.length; i++) {
+                progress.textContent = `Loading ${type.slice(0,-1)} ${i+1}/${files.length}...`;
+                try {
+                    const resp = await fetch(files[i]);
+                    if (!resp.ok) throw new Error('Net error');
+                    folder.file(`${type.slice(0,-1)}_${i+1}.${ext}`, await resp.blob());
+                    count++;
+                } catch (e) { console.error('Load failed:', files[i]); }
             }
-            
-            progress.textContent = 'Creating ZIP file...';
-            const content = await zip.generateAsync({type: 'blob'});
-            saveAs(content, `${car.title.replace(/\s+/g, '_')}_Photos.zip`);
-            
-            progress.textContent = 'Done!';
-            progress.className = 'download-progress download-success';
-        } catch (error) {
-            console.error(error);
-            progress.textContent = 'Error downloading photos.';
-            progress.className = 'download-progress download-error';
+            if (count === 0) throw new Error('No files loaded (check Live Server)');
+            progress.textContent = 'Archiving...';
+            saveAs(await zip.generateAsync({type:'blob'}), `${car.title.replace(/\s+/g,'_')}_${type}.zip`);
+            progress.textContent = 'Done!'; progress.className += ' download-success';
+        } catch (e) {
+            alert('Download failed: ' + e.message);
+            progress.textContent = 'Error'; progress.className += ' download-error';
         } finally {
-            btn.disabled = false;
-            btn.innerHTML = '<i class="fas fa-download"></i> Download All Photos';
-            setTimeout(() => { progress.style.display = 'none'; }, 5000);
+            btn.disabled = false; btn.innerHTML = `<i class="fas fa-download"></i> Download All ${type.charAt(0).toUpperCase() + type.slice(1)}`;
+            setTimeout(() => { if (progress.className.includes('success')) progress.style.display = 'none'; }, 5000);
         }
     }
 
-    async function downloadAllVideos(car) {
-        const btn = document.getElementById('downloadAllVideos');
-        const progress = document.getElementById('downloadProgress');
-        if (!btn) return;
-        
-        btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
-        progress.style.display = 'block';
-        progress.className = 'download-progress';
-        progress.textContent = 'Starting download...';
-        
-        try {
-            const zip = new JSZip();
-            const folder = zip.folder(`${car.title} Videos`);
-            
-            for (let i = 0; i < car.videos.length; i++) {
-                progress.textContent = `Loading video ${i+1} of ${car.videos.length}...`;
-                const response = await fetch(car.videos[i]);
-                if (!response.ok) throw new Error('Network error');
-                const blob = await response.blob();
-                folder.file(`video_${i+1}.mp4`, blob);
-            }
-            
-            progress.textContent = 'Creating ZIP file...';
-            const content = await zip.generateAsync({type: 'blob'});
-            saveAs(content, `${car.title.replace(/\s+/g, '_')}_Videos.zip`);
-            
-            progress.textContent = 'Done!';
-            progress.className = 'download-progress download-success';
-        } catch (error) {
-            console.error(error);
-            progress.textContent = 'Error downloading videos.';
-            progress.className = 'download-progress download-error';
-        } finally {
-            btn.disabled = false;
-            btn.innerHTML = '<i class="fas fa-download"></i> Download All Videos';
-            setTimeout(() => { progress.style.display = 'none'; }, 5000);
-        }
-    }
-
-    // --- ЗАПУСК ПРИЛОЖЕНИЯ ---
     initCarsGrid();
 });
