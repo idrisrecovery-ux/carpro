@@ -242,21 +242,45 @@ document.addEventListener('DOMContentLoaded', function() {
         currentCar = carDetails[carId];
         if (!currentCar) return;
         currentCarPhotos = currentCar.photos || [];
-        
+
         const modal = document.getElementById('carModal');
         const content = document.getElementById('carModalContent');
         modal.style.display = 'flex';
         document.body.classList.add('modal-open');
         setTimeout(() => { modal.scrollTop = 0; content.scrollTop = 0; }, 10);
 
-        const photosHTML = currentCarPhotos.length ? currentCarPhotos.map((src, i) => 
-            `<div class="gallery-item-container"><div class="gallery-item" style="background-image: url('${src}')" data-index="${i}"></div><button class="download-single" data-src="${src}" data-filename="photo_${i+1}.jpg"><i class="fas fa-download"></i> Download</button></div>`
-        ).join('') : '<p>No photos</p>';
+        // Генерируем безопасное имя для файла (без пробелов и спецсимволов)
+        const safeTitle = `${currentCar.brand}_${currentCar.title}`.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
 
-        const videosHTML = (currentCar.videos && currentCar.videos.length) ? 
-            `<div class="car-gallery-section"><h4 class="gallery-title">Videos</h4><div class="video-gallery">${currentCar.videos.map((src, i) => 
-                `<div class="video-item"><video controls><source src="${src}" type="video/mp4"></video><button class="download-single" data-src="${src}" data-filename="video_${i+1}.mp4" style="margin-top:10px;"><i class="fas fa-download"></i> Download</button></div>`
-            ).join('')}</div></div>` : '';
+        const photosHTML = currentCarPhotos.length ? currentCarPhotos.map((src, i) => {
+            // Создаем уникальное имя файла: brand_model_photo_1.jpg
+            const uniqueFilename = `${safeTitle}_photo_${i + 1}.jpg`;
+            return `
+                <div class="gallery-item-container">
+                    <div class="gallery-item" style="background-image: url('${src}')" data-index="${i}"></div>
+                    <button class="download-single" data-src="${src}" data-filename="${uniqueFilename}">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            `;
+        }).join('') : '<p>No photos</p>';
+
+        const videosHTML = (currentCar.videos && currentCar.videos.length) ?
+            `<div class="car-gallery-section">
+                <h4 class="gallery-title">Videos</h4>
+                <div class="video-gallery">${currentCar.videos.map((src, i) => {
+                    // Создаем уникальное имя для видео: brand_model_video_1.mp4
+                    const uniqueVideoFilename = `${safeTitle}_video_${i + 1}.mp4`;
+                    return `
+                        <div class="video-item">
+                            <video controls><source src="${src}" type="video/mp4"></video>
+                            <button class="download-single" data-src="${src}" data-filename="${uniqueVideoFilename}" style="margin-top:10px;">
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                        </div>
+                    `;
+                }).join('')}</div>
+            </div>` : '';
 
         content.innerHTML = `
             <button class="modal-close-top" id="modalCloseTop"><i class="fas fa-times"></i></button>
