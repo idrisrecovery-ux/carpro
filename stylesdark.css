@@ -1,13 +1,17 @@
+/* --- PREMIUM DARK/GOLD THEME BY GEMINI --- */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Используем более современный набор системных шрифтов */
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 body {
-    background-color: #f8f9fa;
-    color: #333;
+    /* Основной фон - темный графит */
+    background-color: #1A1D24;
+    color: #f0f0f0;
     line-height: 1.6;
     overflow-x: hidden;
 }
@@ -23,11 +27,14 @@ body.modal-open {
 }
 
 header {
-    background: linear-gradient(135deg, #1a2a57 0%, #2c3e6e 100%);
+    /* Вместо градиента - глубокий, почти черный фон */
+    background: #1A1D24;
     color: white;
     padding: 2rem 0;
     text-align: center;
+    /* Мягкая тень и золотая акцентная линия снизу */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid #E5B80B;
     position: relative;
     z-index: 10;
 }
@@ -40,46 +47,45 @@ header h1 {
 
 header p {
     font-size: 1.2rem;
-    opacity: 0.9;
+    opacity: 0.8;
 }
 
-/* --- ИСПРАВЛЕНИЯ ЗДЕСЬ --- */
+/* Секция поиска и фильтров */
 .search-section {
-    background: white;
-    padding: 1.5rem; /* БЫЛО: 1rem 0; */
+    background: #252A34; /* "Поверхность" - чуть светлее фона */
+    padding: 1.5rem;
     margin-bottom: 2rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 12px; /* ДОБАВЛЕНО для унификации */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
 }
 
 .search-container {
     display: flex;
     gap: 1rem;
-    max-width: 900px; /* БЫЛО: 800px; */
+    max-width: 900px;
     margin: 0 auto;
     flex-wrap: wrap;
 }
-/* --- КОНЕЦ ИСПРАВЛЕНИЙ --- */
 
-
-/* --- ОПТИМИЗАЦИЯ ---
-  Объединил .search-box и .filter-select, 
-  чтобы убрать дублирование кода.
-*/
+/* Общий стиль для инпутов и селектов */
 .search-box,
 .filter-select {
-    padding: 12px 16px; /* Унифицированный отступ */
-    border: 2px solid #e9ecef;
-    border-radius: 6px;
+    background-color: #1A1D24;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 12px 16px;
     font-size: 1rem;
-    background: white;
 }
 
 .search-box {
     flex: 1;
     min-width: 250px;
 }
-/* --- КОНЕЦ ОПТИМИЗАЦИИ --- */
+
+.search-box::placeholder {
+    color: #9CA3AF;
+}
 
 .filters-container {
     display: flex;
@@ -90,11 +96,10 @@ header p {
 
 .filter-select {
     min-width: 150px;
-    /* Убраны дублирующиеся стили */
 }
 
 .hero {
-    background: url('https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib.rb-1.2.1&auto.format&fit=crop&w=1400&q=80') no-repeat center center/cover;
+    background: url('https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80') no-repeat center center/cover;
     height: 600px;
     display: flex;
     align-items: center;
@@ -109,7 +114,8 @@ header p {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    /* Затемнение чуть сильнее для лучшего контраста */
+    background: rgba(0, 0, 0, 0.6);
 }
 
 .hero-content {
@@ -133,48 +139,48 @@ header p {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
+/* Главная кнопка - ЗОЛОТАЯ */
 .btn {
     display: inline-block;
-    background: #e74c3c;
-    color: white;
+    background: #E5B80B; /* Акцентный золотой */
+    color: #1A1D24; /* Темный текст на золотом */
     padding: 14px 32px;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px; /* Мягкое скругление */
     font-size: 1.1rem;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     text-decoration: none;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .btn:hover {
-    background: #c0392b;
+    background: #FCD34D; /* Светлее при наведении */
+    color: #1A1D24;
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-.btn-secondary {
-    background: #3498db;
-}
-
-.btn-secondary:hover {
-    background: #2980b9;
-}
-
+/* Второстепенные кнопки (в модалке) */
+.btn-secondary,
 .btn-tertiary {
-    background: #9b59b6;
+    background: #333;
+    color: white;
 }
 
+.btn-secondary:hover,
 .btn-tertiary:hover {
-    background: #8e44ad;
+    background: #444;
 }
 
 .section-title {
     text-align: center;
     margin: 4rem 0 1rem;
     font-size: 2.2rem;
-    color: #2c3e50;
+    color: white; /* Белый заголовок */
     position: relative;
 }
 
@@ -183,7 +189,7 @@ header p {
     display: block;
     width: 100px;
     height: 4px;
-    background: #e74c3c;
+    background: #E5B80B; /* Золотой акцент */
     margin: 15px auto;
     border-radius: 2px;
 }
@@ -195,26 +201,31 @@ header p {
     gap: 1rem;
     margin-bottom: 3rem;
     padding: 1rem;
-    background: white;
+    background: #252A34; /* Фон "поверхности" */
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .brand-btn {
     padding: 10px 20px;
-    background: #f8f9fa;
-    border: 2px solid #e9ecef;
-    border-radius: 6px;
+    background: #1A1D24; /* Темный фон */
+    border: 1px solid #444;
+    border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
     transition: all 0.3s ease;
-    color: #495057;
+    color: #9CA3AF; /* Приглушенный текст */
 }
 
-.brand-btn:hover, .brand-btn.active {
-    background: #3498db;
+.brand-btn:hover {
+    background: #333;
     color: white;
-    border-color: #3498db;
+    border-color: #555;
+}
+.brand-btn.active {
+    background: #E5B80B; /* Активный - золотой */
+    color: #1A1D24;
+    border-color: #E5B80B;
 }
 
 .cars-grid {
@@ -224,18 +235,20 @@ header p {
     margin-bottom: 4rem;
 }
 
+/* Карточка автомобиля */
 .car-card {
-    background: white;
-    border-radius: 10px;
+    background: #252A34; /* Фон "поверхности" */
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     transition: transform 0.4s ease, box-shadow 0.4s ease;
     position: relative;
+    border: 1px solid #333; /* Тонкая рамка */
 }
 
 .car-card:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
 .car-image {
@@ -251,13 +264,13 @@ header p {
 .car-title {
     font-size: 1.5rem;
     margin-bottom: 0.8rem;
-    color: #2c3e50;
+    color: white; /* Белый заголовок */
 }
 
 .car-price {
     font-size: 1.6rem;
     font-weight: 700;
-    color: #e74c3c;
+    color: #E5B80B; /* Золотая цена */
     margin-bottom: 1.2rem;
 }
 
@@ -266,7 +279,7 @@ header p {
     justify-content: space-between;
     margin-bottom: 1.8rem;
     font-size: 1rem;
-    color: #7f8c8d;
+    color: #9CA3AF; /* Приглушенный текст */
 }
 
 .car-specs span {
@@ -276,18 +289,19 @@ header p {
 }
 
 .car-specs i {
-    color: #3498db;
+    color: #E5B80B; /* Золотые иконки */
 }
 
 footer {
-    background: #2c3e50;
-    color: white;
+    background: #1A1D24; /* Темный фон */
+    color: #9CA3AF;
     text-align: center;
     padding: 2.5rem 0;
     margin-top: 3rem;
+    border-top: 1px solid #333; /* Разделитель */
 }
 
-/* Modal Styles - FIXED VERSION */
+/* --- Стили Модального Окна --- */
 .modal {
     display: none;
     position: fixed;
@@ -310,8 +324,8 @@ footer {
 }
 
 .modal-content {
-    background: white;
-    padding: 2.5rem;
+    background: #252A34; /* Темный фон модалки */
+    padding: 0;
     border-radius: 10px;
     max-width: 1200px;
     width: 95%;
@@ -323,6 +337,7 @@ footer {
     overflow-y: auto;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
+    border: 1px solid #444;
 }
 
 @keyframes slideUp {
@@ -332,13 +347,13 @@ footer {
 
 .modal h3 {
     margin-bottom: 1rem;
-    color: #2c3e50;
+    color: white;
     font-size: 1.8rem;
 }
 
 .modal p {
     margin-bottom: 1.8rem;
-    color: #7f8c8d;
+    color: #9CA3AF;
     line-height: 1.7;
 }
 
@@ -352,32 +367,30 @@ footer {
     overflow-y: auto;
 }
 
+/* Скроллбар для темной темы */
 .car-details-modal::-webkit-scrollbar {
     width: 8px;
 }
-
 .car-details-modal::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: #252A34;
     border-radius: 4px;
 }
-
 .car-details-modal::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
+    background: #555;
     border-radius: 4px;
 }
-
 .car-details-modal::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8;
+    background: #777;
 }
 
 .car-details-header {
     padding: 3rem 2.5rem 1rem;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #444;
     position: relative;
 }
 
 .car-details-header h3 {
-    color: #e74c3c;
+    color: #E5B80B; /* Золотой заголовок */
     font-size: 2.2rem;
     margin-bottom: 0.5rem;
 }
@@ -385,6 +398,7 @@ footer {
 .car-details-header .car-price {
     font-size: 1.8rem;
     margin-bottom: 1rem;
+    color: white; /* Белая цена (т.к. заголовок уже золотой) */
 }
 
 .car-details-content {
@@ -401,8 +415,8 @@ footer {
 .gallery-title {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: #2c3e50;
-    border-bottom: 2px solid #e74c3c;
+    color: white;
+    border-bottom: 2px solid #E5B80B;
     padding-bottom: 0.5rem;
     display: inline-block;
 }
@@ -433,6 +447,7 @@ footer {
     cursor: pointer;
     transition: transform 0.3s ease;
     position: relative;
+    border: 1px solid #444;
 }
 
 .gallery-item:hover {
@@ -456,8 +471,9 @@ footer {
     opacity: 1;
 }
 
+/* Кнопка "Скачать" под фото */
 .download-single {
-    background: #27ae60;
+    background: #444; /* Нейтральный темный */
     color: white;
     border: none;
     padding: 8px 12px;
@@ -471,7 +487,7 @@ footer {
 }
 
 .download-single:hover {
-    background: #219653;
+    background: #555;
     transform: translateY(-1px);
 }
 
@@ -494,12 +510,13 @@ footer {
     display: block;
 }
 
+/* Кнопка "Закрыть" внизу */
 .close-modal {
-    background: #e74c3c;
+    background: #444;
     color: white;
     border: none;
     padding: 12px 24px;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
     transition: background 0.3s ease;
@@ -507,9 +524,10 @@ footer {
 }
 
 .close-modal:hover {
-    background: #c0392b;
+    background: #555;
 }
 
+/* --- Галерея на полный экран --- */
 .fullscreen-gallery {
     display: none;
     position: fixed;
@@ -546,20 +564,24 @@ footer {
     font-size: 2.5rem;
     cursor: pointer;
     z-index: 10;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.1);
     width: 50px;
     height: 50px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background 0.3s ease;
+}
+.close-fullscreen:hover {
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .gallery-nav {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.1);
     color: white;
     border: none;
     width: 60px;
@@ -575,7 +597,7 @@ footer {
 }
 
 .gallery-nav:hover {
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .gallery-prev {
@@ -594,37 +616,41 @@ footer {
     text-align: center;
     color: white;
     font-size: 1.2rem;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.7);
     padding: 10px;
     border-radius: 4px;
     width: fit-content;
     margin: 0 auto;
 }
 
+/* --- Индикаторы загрузки --- */
 .download-progress {
     display: none;
-    background: #3498db;
-    color: white;
+    background: #E5B80B; /* Золотой прогресс */
+    color: #1A1D24; /* Темный текст */
     padding: 10px 15px;
-    border-radius: 4px;
+    border-radius: 8px;
     margin-top: 10px;
     text-align: center;
 }
 
 .download-success {
-    background: #27ae60;
+    background: #27ae60; /* Зеленый - универсальный */
+    color: white;
 }
 
 .download-error {
-    background: #e74c3c;
+    background: #e74c3c; /* Красный - универсальный */
+    color: white;
 }
 
+/* Кнопка "Х" в модальном окне */
 .modal-close-top {
     position: absolute;
     top: 15px;
     right: 15px;
-    background: rgba(231, 76, 60, 0.95);
-    color: white;
+    background: rgba(156, 163, 175, 0.8); /* Серый */
+    color: #1A1D24;
     border: none;
     width: 50px;
     height: 50px;
@@ -641,16 +667,16 @@ footer {
 }
 
 .modal-close-top:hover {
-    background: #c0392b;
+    background: white;
     transform: scale(1.1);
 }
 
-/* Download Notification Styles */
+/* Уведомление о скачивании */
 .download-notification {
     position: fixed;
     top: 20px;
     right: 20px;
-    background: #27ae60;
+    background: #27ae60; /* Зеленый - ОК */
     color: white;
     padding: 12px 20px;
     border-radius: 6px;
@@ -669,7 +695,7 @@ footer {
     margin-right: 8px;
 }
 
-/* Mobile Fixes */
+/* --- Мобильные исправления (сохранены из оригинала) --- */
 @media (max-width: 768px) {
     .cars-grid {
         grid-template-columns: 1fr;
@@ -741,7 +767,7 @@ footer {
         width: 45px;
         height: 45px;
         font-size: 1.3rem;
-        background: rgba(231, 76, 60, 0.95);
+        background: rgba(156, 163, 175, 0.9);
         z-index: 1000;
     }
     
@@ -757,7 +783,7 @@ footer {
     }
 }
 
-/* Desktop specific fixes */
+/* Desktop specific fixes (сохранены из оригинала) */
 @media (min-width: 769px) {
     .modal {
         align-items: flex-start;
@@ -775,7 +801,7 @@ footer {
     }
 }
 
-/* iOS Specific Fixes */
+/* iOS Specific Fixes (сохранены из оригинала) */
 @supports (-webkit-touch-callout: none) {
     .modal {
         height: 100vh;
@@ -789,15 +815,15 @@ footer {
     right: 20px;
     display: flex;
     gap: 0.5rem;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.2);
     padding: 0.5rem;
     border-radius: 50px;
     z-index: 100;
 }
 .theme-btn {
-    background: #f8f9fa;
-    color: #1a2a57;
-    border: 1px solid #1a2a57;
+    background: #1A1D24;
+    color: #E5B80B;
+    border: 1px solid #E5B80B;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -809,15 +835,15 @@ footer {
     transition: all 0.3s ease;
 }
 .theme-btn:hover {
-    background: #1a2a57;
-    color: white;
+    background: #E5B80B;
+    color: #1A1D24;
 }
 .theme-btn.active {
-    background: #e74c3c;
-    color: white;
-    border-color: #e74c3c;
+    background: #E5B80B;
+    color: #1A1D24;
+    border-color: #E5B80B;
     transform: scale(1.1);
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    box-shadow: 0 0 15px #E5B80B;
 }
 
 /* Адаптация для мобильных */
@@ -831,6 +857,6 @@ footer {
         bottom: 1rem; /* Ставим внизу */
         left: 50%;
         transform: translateX(-50%);
-        background: rgba(0, 0, 0, 0.1);
+        background: rgba(0, 0, 0, 0.2);
     }
 }

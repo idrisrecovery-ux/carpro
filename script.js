@@ -157,6 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
         loadCarDetails();
         renderCarsGrid(filteredCars);
         setupEventListeners();
+        setupThemeSwitcher(); // <--- ДОБАВЛЕН ВЫЗОВ
     }
     
     // --- 4. СЛУШАТЕЛИ ---
@@ -386,5 +387,61 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // --- 9. (НОВЫЙ) ПЕРЕКЛЮЧАТЕЛЬ ТЕМ ---
+    function setupThemeSwitcher() {
+        // Находим ссылку на стили, которую мы создали в <head>
+        const themeLink = document.getElementById('theme-style');
+        
+        // Находим кнопки
+        const lightBtn = document.getElementById('theme-light');
+        const darkBtn = document.getElementById('theme-dark');
+        const neonBtn = document.getElementById('theme-neon');
+        const buttons = [lightBtn, darkBtn, neonBtn];
+        
+        // Какая кнопка какой файл загружает
+        const themes = {
+            'theme-light': 'styles.css',
+            'theme-dark': 'stylesdark.css',
+            'theme-neon': 'stylesneon.css'
+        };
+
+        // Функция для установки класса 'active' на нужную кнопку
+        function setActiveButton(themeHref) {
+            buttons.forEach(btn => {
+                if (btn) {
+                    const btnTheme = themes[btn.id];
+                    if (btnTheme === themeHref) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                }
+            });
+        }
+
+        // Добавляем обработчики кликов на кнопки
+        buttons.forEach(btn => {
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    const themeFile = themes[btn.id];
+                    if (themeFile) {
+                        // 1. Меняем 'href' у <link>
+                        themeLink.href = themeFile;
+                        // 2. Сохраняем выбор в localStorage
+                        localStorage.setItem('siteTheme', themeFile);
+                        // 3. Обновляем активную кнопку
+                        setActiveButton(themeFile);
+                    }
+                });
+            }
+        });
+
+        // При загрузке страницы, устанавливаем класс 'active' на кнопку
+        // которая соответствует теме из localStorage
+        const currentTheme = localStorage.getItem('siteTheme') || 'styles.css';
+        setActiveButton(currentTheme);
+    }
+
+    // --- ЗАПУСК ---
     initCarsGrid();
 });
